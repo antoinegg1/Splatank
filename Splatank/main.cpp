@@ -1,6 +1,7 @@
 #include "dialog.h"
-
+#include "board.h"
 #include <QApplication>
+
 
 int main(int argc, char *argv[])
 {
