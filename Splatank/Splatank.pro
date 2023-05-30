@@ -10,12 +10,14 @@ CONFIG += c++17
 
 SOURCES += \
     board.cpp \
+    bullet.cpp \
     game.cpp \
     main.cpp \
     dialog.cpp
 
 HEADERS += \
     board.h \
+    bullet.h \
     dialog.h \
     game.h
 
