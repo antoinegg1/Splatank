@@ -9,14 +9,18 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    bullet.cpp \
     main.cpp \
-    dialog.cpp
+    tank.cpp \
+    widget.cpp
 
 HEADERS += \
-    dialog.h
+    bullet.h \
+    tank.h \
+    widget.h
 
 FORMS += \
-    dialog.ui
+    widget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
