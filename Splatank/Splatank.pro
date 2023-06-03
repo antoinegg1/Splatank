@@ -9,22 +9,26 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    board.cpp \
     bullet.cpp \
-    game.cpp \
+    form.cpp \
     main.cpp \
-    dialog.cpp
+    tank.cpp \
+    widget.cpp
 
 HEADERS += \
-    board.h \
     bullet.h \
-    dialog.h \
-    game.h
+    form.h \
+    tank.h \
+    widget.h
 
 FORMS += \
-    dialog.ui
+    form.ui \
+    widget.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    rec.qrc
