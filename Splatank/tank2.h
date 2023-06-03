@@ -1,18 +1,20 @@
-#ifndef TANK_H
-#define TANK_H
+#ifndef TANK2_H
+#define TANK2_H
+
 #include<bullet.h>
 #include<QGraphicsPixmapItem>
 #include<QKeyEvent>
 #include<myscene.h>
 
-class Tank : public QGraphicsPixmapItem
+class Tank2 : public QGraphicsPixmapItem
 {
 public:
-    Tank(const QPixmap &pixmap, MyScene *scene);
+    Tank2(const QPixmap &pixmap, MyScene *scene);
 
     Bullet b1;
+
     void MykeyPressEvent(int key) ;
-    void MykeyReleaseEvent(int key);
+    void MykeyReleaseEvent(int key) ;
 
 protected:
     void shoot();
@@ -26,4 +28,4 @@ private:
 };
 
 
-#endif // TANK_H
+#endif // TANK2_H

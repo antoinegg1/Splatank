@@ -8,6 +8,5 @@ int main(int argc, char *argv[])
     Widget w;
     w.show();
     w.StartGame();
-
     return a.exec();
 }

@@ -11,12 +11,18 @@ CONFIG += c++17
 SOURCES += \
     bullet.cpp \
     main.cpp \
+    myscene.cpp \
+    myview.cpp \
     tank.cpp \
+    tank2.cpp \
     widget.cpp
 
 HEADERS += \
     bullet.h \
+    myscene.h \
+    myview.h \
     tank.h \
+    tank2.h \
     widget.h
 
 FORMS += \
