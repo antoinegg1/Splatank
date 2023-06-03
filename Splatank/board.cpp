@@ -3,6 +3,7 @@
 #include <QGraphicsPixmapItem>
 #include <QPaintEvent>
 #include "QKeyEvent"
+#include <board.h>
 #include "QtGui/qpainter.h"
 
 
@@ -19,12 +20,7 @@
 
 #define p1colorname red
 #define p2colorname blue
-
-class GameBoard:public QGraphicsScene{
-
-    int map[WIDTH+1][LENGTH+1];
-public:
-    void init()
+void GameBoard::init()
     {
         for(int i=1;i<=WIDTH;i++)
         {
@@ -42,7 +38,7 @@ public:
         }
     }
 
-    bool can_be_painted(int x,int y)
+bool GameBoard::can_be_painted(int x,int y)
     {
         if(map[x][y]==1)
             return false;
@@ -50,7 +46,7 @@ public:
             return true;
     }
 
-    void map_be_painted(int x,int y,int color)
+void GameBoard::map_be_painted(int x,int y,int color)
     {
         if(x>=WIDTH||x<=0||y>=LENGTH||y<=0)
             return;
@@ -58,7 +54,7 @@ public:
             map[x][y]=color;
     }
 
-    void paint_map(QPaintEvent *event)
+void GameBoard::paint_map(QPaintEvent *event)
 
     {
         QPen mypen;
@@ -85,4 +81,3 @@ public:
         }
     }
 
-};
