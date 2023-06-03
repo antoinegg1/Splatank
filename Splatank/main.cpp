@@ -1,12 +1,13 @@
-#include "dialog.h"
-
+#include "widget.h"
 #include <QApplication>
+#include<QDebug>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Dialog w;
+    Widget w;
     w.show();
-    //test
+    w.StartGame();
+
     return a.exec();
 }
