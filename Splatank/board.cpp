@@ -38,6 +38,24 @@ void GameBoard::init()
         }
     }
 
+bool GameBoard::can_be_reached(int sx,int sy,int ex,int ey)
+    {
+        if(sx==ex&&sy==ey)
+            return true;
+        if(map[sx][sy]==wall)
+            return false;
+        bool result=false;
+        if(sx>ex)
+            result = can_be_reached(sx-1,sy,ex,ey);
+        else if(sx<ex)
+            result = can_be_reached(sx+1,sy,ex,ey);
+        if(sy>ey)
+            result |= can_be_reached(sx,sy-1,ex,ey);
+        else if(sy<ey)
+            result |= can_be_reached(sx,sy+1,ex,ey);
+        return result;
+}
+
 bool GameBoard::can_be_painted(int x,int y)
     {
         if(map[x][y]==1)

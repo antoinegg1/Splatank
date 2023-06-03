@@ -17,8 +17,9 @@
 
 class GameBoard:public QGraphicsScene{
 
+    public:
     int map[WIDTH+1][LENGTH+1];
-public:
+
     void init();
 
     bool can_be_painted(int x,int y);
@@ -26,6 +27,8 @@ public:
     void map_be_painted(int x,int y,int color);
 
     void paint_map(QPaintEvent *event);
+
+    bool can_be_reached(int sx,int sy,int ex,int ey);
 };
 
 #endif // BOARD_H

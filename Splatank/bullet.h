@@ -12,7 +12,7 @@ public:
     void draw(QPainter& painter);
     QRect getRect() const;
 
-    void bulletsplash(GameBoard a);
+    void bulletsplash(GameBoard &a,int x,int y,int color);
 
 
 private:
@@ -23,6 +23,7 @@ private:
     int m_speed = 5;      // 子弹的速度
     int m_width = 5;      // 子弹的宽度
     int m_height = 10;    // 子弹的高度
+    int splashrange = 5;
 
     // 定义子弹的方向常量
     enum Direction

@@ -39,8 +39,21 @@ void Bullet::move()
         return QRect(m_x, m_y, m_width, m_height);
     }
 
-    void Bullet::bulletsplash(GameBoard a)
+    void Bullet::bulletsplash(GameBoard &a,int x,int y,int color)
     {
+        for(int i=x-splashrange;i<=x+splashrange;i++)
+        {
+            for(int j=y-splashrange;j<=y+splashrange;j++)
+            {
+                if(sqrt(i*i+j*j)<=splashrange)
+                {
+                    if(a.can_be_reached(x,y,i,j))
+                    {
+                        a.map[i][j]=color;
+                    }
+                }
+            }
+        }
 
     }
 
