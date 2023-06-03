@@ -9,20 +9,25 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    board.cpp \
     bullet.cpp \
     form.cpp \
     main.cpp \
+    subform.cpp \
     tank.cpp \
     widget.cpp
 
 HEADERS += \
+    board.h \
     bullet.h \
     form.h \
+    subform.h \
     tank.h \
     widget.h
 
 FORMS += \
     form.ui \
+    subform.ui \
     widget.ui
 
 # Default rules for deployment.

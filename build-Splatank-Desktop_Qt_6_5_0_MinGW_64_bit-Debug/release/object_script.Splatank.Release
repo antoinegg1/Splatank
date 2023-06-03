@@ -1,0 +1,10 @@
+release/bullet.o
+release/form.o
+release/main.o
+release/subform.o
+release/tank.o
+release/widget.o
+release/qrc_rec.o
+release/moc_form.o
+release/moc_subform.o
+release/moc_widget.o

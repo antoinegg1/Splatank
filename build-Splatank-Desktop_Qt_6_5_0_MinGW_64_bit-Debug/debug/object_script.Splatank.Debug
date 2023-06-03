@@ -1,0 +1,10 @@
+debug/bullet.o
+debug/form.o
+debug/main.o
+debug/subform.o
+debug/tank.o
+debug/widget.o
+debug/qrc_rec.o
+debug/moc_form.o
+debug/moc_subform.o
+debug/moc_widget.o
