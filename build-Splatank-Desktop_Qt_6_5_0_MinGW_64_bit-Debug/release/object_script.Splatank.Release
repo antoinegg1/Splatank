@@ -7,6 +7,7 @@ release/myview.o
 release/setting.o
 release/tank.o
 release/tank2.o
+release/timeboard.o
 release/widget.o
 release/qrc_pic.o
 release/moc_bullet.o
@@ -14,4 +15,5 @@ release/moc_introduce.o
 release/moc_myview.o
 release/moc_setting.o
 release/moc_tank2.o
+release/moc_timeboard.o
 release/moc_widget.o

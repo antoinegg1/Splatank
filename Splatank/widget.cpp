@@ -2,6 +2,7 @@
 #include "ui_widget.h"
 #include<myview.h>
 #include<myscene.h>
+#include<timeboard.h>
 #include<tank.h>
 #include<tank2.h>
 #include<bullet.h>
@@ -12,9 +13,8 @@ Widget::Widget(QWidget *parent)
     ui->setupUi(this);
     MainScene=new MyScene();
     MainScene->setSceneRect(0,0,800,500);
-    player1 = new Tank(QPixmap("..\\Splatank\\res\\1.png"),MainScene);
-    player2 = new Tank2(QPixmap("..\\Splatank\\res\\2.png"),MainScene);
     MainView=new MyView(this,MainScene);
+    //MainView->fitInView(MainScene->sceneRect(), Qt::KeepAspectRatio);
     QObject::connect(&i,SIGNAL(mySignal()),this,SLOT(tostart()));
     QObject::connect(MainView,SIGNAL(escSignal()),this,SLOT(tostart()));
 }
@@ -132,6 +132,14 @@ Widget::~Widget()
 
 void Widget::on_pushButton_clicked()//start
 {
+    MainScene=new MyScene();
+    MainScene->setSceneRect(0,0,800,500);
+    MainView->setScene(MainScene);
+    player1 = new Tank(QPixmap("..\\Splatank\\res\\1.png"),MainScene);
+    player2 = new Tank2(QPixmap("..\\Splatank\\res\\2.png"),MainScene);
+    timeBoard* TimeBoard=new timeBoard(30,MainScene);
+    MainScene->addItem(TimeBoard);
+    MainScene->init_map();
     MainView->show();
     hide();
 }
@@ -151,7 +159,8 @@ void Widget::on_pushButton_3_clicked()//introduce
 void Widget::tostart(){
     this->show();
     i.hide();
-    MainView->hide();
+    MainView->close();
+    delete MainScene;
 }
 //void Widget::toset(){
 //    MainView->hide();

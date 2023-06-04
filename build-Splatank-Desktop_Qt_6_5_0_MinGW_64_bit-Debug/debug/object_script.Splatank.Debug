@@ -7,6 +7,7 @@ debug/myview.o
 debug/setting.o
 debug/tank.o
 debug/tank2.o
+debug/timeboard.o
 debug/widget.o
 debug/qrc_pic.o
 debug/moc_bullet.o
@@ -14,4 +15,5 @@ debug/moc_introduce.o
 debug/moc_myview.o
 debug/moc_setting.o
 debug/moc_tank2.o
+debug/moc_timeboard.o
 debug/moc_widget.o
