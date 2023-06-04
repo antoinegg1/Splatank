@@ -16,6 +16,7 @@ Widget::Widget(QWidget *parent)
     ui->setupUi(this);
     MainScene=new MyScene();
     MainScene->setSceneRect(0,0,800,500);
+    MainScene->init_map();
     player1 = new Tank(QPixmap("..\\Splatank\\res\\1.png"),MainScene);
     player2 = new Tank2(QPixmap("..\\Splatank\\res\\2.png"),MainScene);
     MainView=new MyView(this,MainScene);
@@ -136,7 +137,7 @@ Widget::~Widget()
 
 void Widget::on_pushButton_clicked()
 {
-    timeBoard* TimeBoard=new timeBoard(180);
+    timeBoard* TimeBoard=new timeBoard(10,MainScene);
     MainScene->addItem(TimeBoard);
     MainView->show();
     close();

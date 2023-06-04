@@ -1,10 +1,11 @@
 #include<QDebug>
 #include "timeboard.h"
+#include<myscene.h>
 #include"QTimer"
 #include<QFont>
 #include<QPainter>
 
-timeBoard::timeBoard(int CountdownSeconds): QGraphicsTextItem(), countdownSeconds(CountdownSeconds)
+timeBoard::timeBoard(int CountdownSeconds,MyScene* scene): QGraphicsTextItem(), countdownSeconds(CountdownSeconds),parent(scene)
 {
     setPlainText(QString::number(countdownSeconds));
     // 创建定时器
@@ -35,5 +36,8 @@ void timeBoard::updateCountdown()
     setPlainText(QString::number(countdownSeconds));
     // 倒计时结束
     if (countdownSeconds == 0)
+    {
         timer->stop();
+        parent->endGame();
+    }
 }
