@@ -11,6 +11,8 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -18,12 +20,27 @@ QT_BEGIN_NAMESPACE
 class Ui_Widget
 {
 public:
+    QGroupBox *groupBox;
+    QPushButton *pushButton;
+    QPushButton *pushButton_2;
 
     void setupUi(QWidget *Widget)
     {
         if (Widget->objectName().isEmpty())
             Widget->setObjectName("Widget");
-        Widget->resize(800, 600);
+        Widget->resize(911, 600);
+        groupBox = new QGroupBox(Widget);
+        groupBox->setObjectName("groupBox");
+        groupBox->setGeometry(QRect(0, 0, 911, 601));
+        groupBox->setStyleSheet(QString::fromUtf8("border-image: url(:/pic/background.png);"));
+        pushButton = new QPushButton(groupBox);
+        pushButton->setObjectName("pushButton");
+        pushButton->setGeometry(QRect(350, 290, 251, 101));
+        pushButton->setStyleSheet(QString::fromUtf8("border-image: url(:/pic/start2.png);"));
+        pushButton_2 = new QPushButton(groupBox);
+        pushButton_2->setObjectName("pushButton_2");
+        pushButton_2->setGeometry(QRect(340, 450, 251, 81));
+        pushButton_2->setStyleSheet(QString::fromUtf8("border-image: url(:/pic/exit3.png);"));
 
         retranslateUi(Widget);
 
@@ -33,6 +50,9 @@ public:
     void retranslateUi(QWidget *Widget)
     {
         Widget->setWindowTitle(QCoreApplication::translate("Widget", "Widget", nullptr));
+        groupBox->setTitle(QString());
+        pushButton->setText(QString());
+        pushButton_2->setText(QString());
     } // retranslateUi
 
 };

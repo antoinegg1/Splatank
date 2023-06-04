@@ -1,3 +1,4 @@
+debug/board.o
 debug/bullet.o
 debug/main.o
 debug/myscene.o
@@ -5,6 +6,7 @@ debug/myview.o
 debug/tank.o
 debug/tank2.o
 debug/widget.o
+debug/qrc_pic.o
 debug/moc_bullet.o
 debug/moc_tank2.o
 debug/moc_widget.o
