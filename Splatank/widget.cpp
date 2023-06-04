@@ -5,6 +5,7 @@
 #include<QGraphicsView>
 #include<myview.h>
 #include<myscene.h>
+#include<timeboard.h>
 #include<tank.h>
 #include<tank2.h>
 #include<bullet.h>
@@ -18,6 +19,7 @@ Widget::Widget(QWidget *parent)
     player1 = new Tank(QPixmap("..\\Splatank\\res\\1.png"),MainScene);
     player2 = new Tank2(QPixmap("..\\Splatank\\res\\2.png"),MainScene);
     MainView=new MyView(this,MainScene);
+    //MainView->fitInView(MainScene->sceneRect(), Qt::KeepAspectRatio);
 
 }
 
@@ -134,6 +136,8 @@ Widget::~Widget()
 
 void Widget::on_pushButton_clicked()
 {
+    timeBoard* TimeBoard=new timeBoard(180);
+    MainScene->addItem(TimeBoard);
     MainView->show();
     close();
 }

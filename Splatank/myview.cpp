@@ -5,7 +5,6 @@ MyView::MyView(Widget* widget,QGraphicsScene* scene):QGraphicsView(scene),parent
 {
     player1KeyPressed=false;
     player2KeyPressed=false;
-
 }
 
 void MyView::keyPressEvent(QKeyEvent *event)
