@@ -1,47 +1,94 @@
 #include<QDebug>
 #include "tank2.h"
 #include<bullet.h>
+#include<QTimer>
 #include<QKeyEvent>
 #include<QGraphicsScene>
 
-Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),b1(scene)
+Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap)
 {
     setFlag(QGraphicsItem::ItemIsFocusable);
+    b1=new Bullet(scene,this,-1);
     leftKeyPressed = false;
     rightKeyPressed = false;
     upKeyPressed = false;
     downKeyPressed = false;
+    haveBullet=true;
     parent=scene;
     parent->addItem(this);
     setPos(700,227);
-    setFocus();
+    //setFocus();
 }
 
+void Tank2::destroy()
+{
+    parent->removeItem(this);
+    QTimer::singleShot(3000, [this]() {
+        setPos(700,227);
+        parent->addItem(this);
+    });
+}
+
+bool Tank2::collision()
+{
+    QList<QGraphicsItem *> collidingItems = this->collidingItems();
+    if (!collidingItems.isEmpty())
+        return true;
+    return false;
+}
+
+void Tank2::turnLeft()
+{
+    setTransformOriginPoint(boundingRect().center());
+    setRotation(rotation() - 8);
+    if(collision())
+        turnRight();
+}
+void Tank2::turnRight()
+{
+    setTransformOriginPoint(boundingRect().center());
+    setRotation(rotation() + 8);
+    if(collision())
+        turnLeft();
+}
+void Tank2::goForward()
+{
+    qreal angle = rotation() * M_PI / 180;
+    setPos(x() - 10*qCos(angle), y() - 10*qSin(angle));
+    if(collision())
+        goBack();
+}
+void Tank2::goBack()
+{
+    qreal angle = rotation() * M_PI / 180;
+    setPos(x() + 10*qCos(angle), y() + 10*qSin(angle));
+    if(collision())
+        goForward();
+}
 
 void Tank2::MykeyPressEvent(int key){
-    if(key==Qt::Key_M){
-        b1.shoot(x()+18+qCos(rotation() * M_PI / 180+M_PI)*28,y()+10+qSin(rotation() * M_PI / 180+M_PI)*28,rotation() * M_PI / 180+M_PI);
+
+    if(key==Qt::Key_M&&haveBullet){
+        haveBullet=false;
+        b1->shoot(x()+18+qCos(rotation() * M_PI / 180+M_PI)*28,y()+10+qSin(rotation() * M_PI / 180+M_PI)*28,rotation() * M_PI / 180+M_PI);
     }
-    if (key == Qt::Key_Left) {
+    if (key== Qt::Key_Left) {
         leftKeyPressed = true;
         if (!rightKeyPressed) {
-            setTransformOriginPoint(boundingRect().center());
-            setRotation(rotation() - 7);
+            turnLeft();
 
             if(upKeyPressed)
             {
                 if(!downKeyPressed)
                 {
-                    qreal angle = rotation() * M_PI / 180;
-                    setPos(x() - 10*qCos(angle), y() - 10*qSin(angle));
+                    goForward();
                 }
             }
             if(downKeyPressed)
             {
                 if(!upKeyPressed)
                 {
-                    qreal angle = rotation() * M_PI / 180;
-                    setPos(x() + 10*qCos(angle), y() + 10*qSin(angle));
+                    goBack();
                 }
             }
         }
@@ -50,23 +97,20 @@ void Tank2::MykeyPressEvent(int key){
     else if (key == Qt::Key_Right) {
         rightKeyPressed = true;
         if (!leftKeyPressed) {
-            setTransformOriginPoint(boundingRect().center());
-            setRotation(rotation() + 7);
+            turnRight();
 
             if(upKeyPressed)
             {
                 if(!downKeyPressed)
                 {
-                    qreal angle = rotation() * M_PI / 180;
-                    setPos(x() - 10*qCos(angle), y() - 10*qSin(angle));
+                    goForward();
                 }
             }
             if(downKeyPressed)
             {
                 if(!upKeyPressed)
                 {
-                    qreal angle = rotation() * M_PI / 180;
-                    setPos(x() + 10*qCos(angle), y() + 10*qSin(angle));
+                    goBack();
                 }
             }
         }
@@ -76,19 +120,16 @@ void Tank2::MykeyPressEvent(int key){
         upKeyPressed = true;
         if (!downKeyPressed) {
 
-            qreal angle = rotation() * M_PI / 180;
-            setPos(x() - 10*qCos(angle), y() - 10*qSin(angle));
+            goForward();
 
             if(leftKeyPressed){
                 if (!rightKeyPressed) {
-                    setTransformOriginPoint(boundingRect().center());
-                    setRotation(rotation() - 7);
+                    turnLeft();
                 }
             }
             if(rightKeyPressed){
                 if (!leftKeyPressed) {
-                    setTransformOriginPoint(boundingRect().center());
-                    setRotation(rotation() + 7);
+                    turnRight();
                 }
             }
         }
@@ -97,24 +138,22 @@ void Tank2::MykeyPressEvent(int key){
     else if (key == Qt::Key_Down) {
         downKeyPressed = true;
         if (!upKeyPressed) {
-            qreal angle = rotation() * M_PI / 180;
-            setPos(x() + 10*qCos(angle), y() + 10*qSin(angle));
+            goBack();
 
             if(leftKeyPressed){
                 if (!rightKeyPressed) {
-                    setTransformOriginPoint(boundingRect().center());
-                    setRotation(rotation() - 7);
+                    turnLeft();
                 }
             }
             if(rightKeyPressed){
                 if (!leftKeyPressed) {
-                    setTransformOriginPoint(boundingRect().center());
-                    setRotation(rotation() + 7);
+                    turnRight();
                 }
             }
         }
     }
 }
+
 
 void Tank2::MykeyReleaseEvent(int key) {
     if (key == Qt::Key_Left) {

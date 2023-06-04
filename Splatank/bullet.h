@@ -7,8 +7,8 @@
 class Bullet : public QObject,public QGraphicsPixmapItem{
     Q_OBJECT
 public:
-    Bullet(MyScene* scene);
-
+    Bullet(MyScene* scene, QGraphicsPixmapItem* tank,int Color);
+    ~Bullet();
     void shoot(qreal X,qreal Y,qreal angle);
 
 private slots:
@@ -18,7 +18,12 @@ private:
     qreal speed;
     qreal dx;
     qreal dy;
+    qreal startX;
+    qreal startY;
+    bool bomb;
+    int color;
     MyScene* parent;
+    QGraphicsPixmapItem* parentTank;
 };
 
 #endif // BULLET_H
