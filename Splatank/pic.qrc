@@ -7,5 +7,19 @@
         <file>../pic/start.png</file>
         <file>../pic/start1.png</file>
         <file>../pic/start2.png</file>
+        <file>../pic/A.png</file>
+        <file>../pic/D.png</file>
+        <file>../pic/down.png</file>
+        <file>../pic/introduce.png</file>
+        <file>../pic/left.png</file>
+        <file>../pic/return.png</file>
+        <file>../pic/right.png</file>
+        <file>../pic/S.png</file>
+        <file>../pic/set.png</file>
+        <file>../pic/up.png</file>
+        <file>../pic/W.png</file>
+        <file>../pic/backg.png</file>
+        <file>../pic/M.png</file>
+        <file>../pic/Q.png</file>
     </qresource>
 </RCC>

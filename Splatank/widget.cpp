@@ -1,8 +1,5 @@
 #include "widget.h"
 #include "ui_widget.h"
-#include<QGraphicsScene>
-#include<QGraphicsItem>
-#include<QGraphicsView>
 #include<myview.h>
 #include<myscene.h>
 #include<timeboard.h>
@@ -16,12 +13,10 @@ Widget::Widget(QWidget *parent)
     ui->setupUi(this);
     MainScene=new MyScene();
     MainScene->setSceneRect(0,0,800,500);
-    MainScene->init_map();
-    player1 = new Tank(QPixmap("..\\Splatank\\res\\1.png"),MainScene);
-    player2 = new Tank2(QPixmap("..\\Splatank\\res\\2.png"),MainScene);
     MainView=new MyView(this,MainScene);
     //MainView->fitInView(MainScene->sceneRect(), Qt::KeepAspectRatio);
-
+    QObject::connect(&i,SIGNAL(mySignal()),this,SLOT(tostart()));
+    QObject::connect(MainView,SIGNAL(escSignal()),this,SLOT(tostart()));
 }
 
 Widget::~Widget()
@@ -135,17 +130,39 @@ Widget::~Widget()
 */
 
 
-void Widget::on_pushButton_clicked()
+void Widget::on_pushButton_clicked()//start
 {
+    MainScene=new MyScene();
+    MainScene->setSceneRect(0,0,800,500);
+    MainView->setScene(MainScene);
+    player1 = new Tank(QPixmap("..\\Splatank\\res\\1.png"),MainScene);
+    player2 = new Tank2(QPixmap("..\\Splatank\\res\\2.png"),MainScene);
     timeBoard* TimeBoard=new timeBoard(10,MainScene);
     MainScene->addItem(TimeBoard);
+    MainScene->init_map();
     MainView->show();
-    close();
+    hide();
 }
 
 
-void Widget::on_pushButton_2_clicked()
+void Widget::on_pushButton_2_clicked()//exit
 {
     close();
 }
+
+
+void Widget::on_pushButton_3_clicked()//introduce
+{
+    i.show();
+    hide();
+}
+void Widget::tostart(){
+    this->show();
+    i.hide();
+    MainView->close();
+    delete MainScene;
+}
+//void Widget::toset(){
+//    MainView->hide();
+//}
 

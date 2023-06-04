@@ -27,6 +27,9 @@ void MyView::keyPressEvent(QKeyEvent *event)
             parent->player1->MykeyPressEvent(player1Key);
         }
     }
+    if(event->key()==Qt::Key_Escape){
+       emit escSignal();
+    }
 }
 
 void MyView::keyReleaseEvent(QKeyEvent *event)

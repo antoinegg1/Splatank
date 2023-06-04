@@ -11,9 +11,11 @@ CONFIG += c++17
 SOURCES += \
     board.cpp \
     bullet.cpp \
+    introduce.cpp \
     main.cpp \
     myscene.cpp \
     myview.cpp \
+    setting.cpp \
     tank.cpp \
     tank2.cpp \
     timeboard.cpp \
@@ -22,14 +24,18 @@ SOURCES += \
 HEADERS += \
     board.h \
     bullet.h \
+    introduce.h \
     myscene.h \
     myview.h \
+    setting.h \
     tank.h \
     tank2.h \
     timeboard.h \
     widget.h
 
 FORMS += \
+    introduce.ui \
+    setting.ui \
     widget.ui
 
 # Default rules for deployment.
@@ -37,7 +43,18 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-DISTFILES +=
+DISTFILES += \
+    ../pic/A.png \
+    ../pic/D.png \
+    ../pic/S.png \
+    ../pic/W.png \
+    ../pic/down.png \
+    ../pic/introduce.png \
+    ../pic/left.png \
+    ../pic/return.png \
+    ../pic/right.png \
+    ../pic/set.png \
+    ../pic/up.png
 
 RESOURCES += \
     pic.qrc

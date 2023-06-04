@@ -23,6 +23,8 @@ public:
     QGroupBox *groupBox;
     QPushButton *pushButton;
     QPushButton *pushButton_2;
+    QPushButton *pushButton_3;
+    QPushButton *pushButton_4;
 
     void setupUi(QWidget *Widget)
     {
@@ -35,12 +37,20 @@ public:
         groupBox->setStyleSheet(QString::fromUtf8("border-image: url(:/pic/background.png);"));
         pushButton = new QPushButton(groupBox);
         pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(350, 290, 251, 101));
+        pushButton->setGeometry(QRect(330, 250, 251, 101));
         pushButton->setStyleSheet(QString::fromUtf8("border-image: url(:/pic/start2.png);"));
         pushButton_2 = new QPushButton(groupBox);
         pushButton_2->setObjectName("pushButton_2");
-        pushButton_2->setGeometry(QRect(340, 450, 251, 81));
+        pushButton_2->setGeometry(QRect(330, 470, 251, 81));
         pushButton_2->setStyleSheet(QString::fromUtf8("border-image: url(:/pic/exit3.png);"));
+        pushButton_3 = new QPushButton(groupBox);
+        pushButton_3->setObjectName("pushButton_3");
+        pushButton_3->setGeometry(QRect(330, 360, 251, 91));
+        pushButton_3->setStyleSheet(QString::fromUtf8("border-image: url(:/pic/introduce.png);"));
+        pushButton_4 = new QPushButton(groupBox);
+        pushButton_4->setObjectName("pushButton_4");
+        pushButton_4->setGeometry(QRect(20, 530, 61, 51));
+        pushButton_4->setStyleSheet(QString::fromUtf8("border-image: url(:/pic/set.png);"));
 
         retranslateUi(Widget);
 
@@ -53,6 +63,8 @@ public:
         groupBox->setTitle(QString());
         pushButton->setText(QString());
         pushButton_2->setText(QString());
+        pushButton_3->setText(QString());
+        pushButton_4->setText(QString());
     } // retranslateUi
 
 };

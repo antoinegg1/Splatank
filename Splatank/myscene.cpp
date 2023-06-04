@@ -21,6 +21,9 @@ void MyScene::bombAt(int color,qreal X,qreal Y)
 
 void MyScene::init_map()
 {
+    memset(map,0,sizeof(map));
+    count1=0;
+    count2=0;
     for (int x = 0; x < 800; x++) {
         for (int y = 0; y < 500; y++) {
             if (x < 15 || x >= 800 - 15 || y < 15 || y >= 500 - 15) {
