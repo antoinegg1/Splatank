@@ -7,7 +7,12 @@
 #include<myscene.h>
 #include<tank.h>
 #include<tank2.h>
+#include "introduce.h"
+#include<QGraphicsScene>
+#include<QGraphicsItem>
+#include <QObject>
 
+#include <QPushButton>
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
 QT_END_NAMESPACE
@@ -23,17 +28,18 @@ public:
 
     Tank *player1;
     Tank2 *player2;
-
+    introduce i;
     //void keyPressEvent(QKeyEvent *event) override;
     //void keyReleaseEvent(QKeyEvent *event) override;
 
 protected:
 
 private slots:
+    void tostart();
 
     void on_pushButton_clicked();
-
     void on_pushButton_2_clicked();
+    void on_pushButton_3_clicked();
 
 private:
     Ui::Widget *ui;

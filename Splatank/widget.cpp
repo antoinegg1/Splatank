@@ -1,8 +1,5 @@
 #include "widget.h"
 #include "ui_widget.h"
-#include<QGraphicsScene>
-#include<QGraphicsItem>
-#include<QGraphicsView>
 #include<myview.h>
 #include<myscene.h>
 #include<tank.h>
@@ -18,7 +15,8 @@ Widget::Widget(QWidget *parent)
     player1 = new Tank(QPixmap("..\\Splatank\\res\\1.png"),MainScene);
     player2 = new Tank2(QPixmap("..\\Splatank\\res\\2.png"),MainScene);
     MainView=new MyView(this,MainScene);
-
+    QObject::connect(&i,SIGNAL(mySignal()),this,SLOT(tostart()));
+    QObject::connect(MainView,SIGNAL(escSignal()),this,SLOT(tostart()));
 }
 
 Widget::~Widget()
@@ -132,15 +130,30 @@ Widget::~Widget()
 */
 
 
-void Widget::on_pushButton_clicked()
+void Widget::on_pushButton_clicked()//start
 {
     MainView->show();
-    close();
+    hide();
 }
 
 
-void Widget::on_pushButton_2_clicked()
+void Widget::on_pushButton_2_clicked()//exit
 {
     close();
 }
+
+
+void Widget::on_pushButton_3_clicked()//introduce
+{
+    i.show();
+    hide();
+}
+void Widget::tostart(){
+    this->show();
+    i.hide();
+    MainView->hide();
+}
+//void Widget::toset(){
+//    MainView->hide();
+//}
 

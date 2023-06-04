@@ -3,11 +3,14 @@
 #include<QMap>
 #include<widget.h>
 #include<QGraphicsView>
+#include <QObject>
 class MyView:public QGraphicsView
 {
+    Q_OBJECT;
 public:
     MyView(Widget* widget,QGraphicsScene* scene);
-
+signals:
+    void escSignal();
 private:
     Widget* parent;
     bool player1KeyPressed;
@@ -16,6 +19,7 @@ private:
     int player2Key;
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
+
 };
 
 #endif // MYVIEW_H
