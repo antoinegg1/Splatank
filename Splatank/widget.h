@@ -4,7 +4,9 @@
 #include <QWidget>
 #include<QGraphicsScene>
 #include<QGraphicsView>
+#include<myscene.h>
 #include<tank.h>
+#include<tank2.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
@@ -19,13 +21,24 @@ public:
     ~Widget();
     void StartGame();
 
+    Tank *player1;
+    Tank2 *player2;
+
+    //void keyPressEvent(QKeyEvent *event) override;
+    //void keyReleaseEvent(QKeyEvent *event) override;
+
+protected:
+
 private slots:
 
 private:
     Ui::Widget *ui;
-    QGraphicsScene MainScene;
-    QGraphicsView MainView;
-    Tank *player1;
+    MyScene* MainScene;
+    QGraphicsView* MainView;
+    bool wKeyPressed;
+    bool aKeyPressed;
+    bool sKeyPressed;
+    bool dKeyPressed;
 
 };
 #endif // WIDGET_H

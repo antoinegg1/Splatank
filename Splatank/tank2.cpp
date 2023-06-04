@@ -1,14 +1,14 @@
 #include<QDebug>
-#include "tank.h"
+#include "tank2.h"
 #include<bullet.h>
+#include<QTimer>
 #include<QKeyEvent>
-#include<myscene.h>
 #include<QGraphicsScene>
 
-Tank::Tank(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap)
+Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap)
 {
     setFlag(QGraphicsItem::ItemIsFocusable);
-    b1=new Bullet(scene,this,1);
+    b1=new Bullet(scene,this,-1);
     leftKeyPressed = false;
     rightKeyPressed = false;
     upKeyPressed = false;
@@ -16,20 +16,20 @@ Tank::Tank(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap)
     haveBullet=true;
     parent=scene;
     parent->addItem(this);
-    setPos(54,227);
+    setPos(700,227);
     //setFocus();
 }
 
-void Tank::destroy()
+void Tank2::destroy()
 {
     parent->removeItem(this);
     QTimer::singleShot(3000, [this]() {
-        setPos(54,227);
+        setPos(700,227);
         parent->addItem(this);
     });
 }
 
-bool Tank::collision()
+bool Tank2::collision()
 {
     QList<QGraphicsItem *> collidingItems = this->collidingItems();
     if (!collidingItems.isEmpty())
@@ -37,42 +37,42 @@ bool Tank::collision()
     return false;
 }
 
-void Tank::turnLeft()
+void Tank2::turnLeft()
 {
     setTransformOriginPoint(boundingRect().center());
     setRotation(rotation() - 8);
     if(collision())
         turnRight();
 }
-void Tank::turnRight()
+void Tank2::turnRight()
 {
     setTransformOriginPoint(boundingRect().center());
     setRotation(rotation() + 8);
     if(collision())
         turnLeft();
 }
-void Tank::goForward()
-{
-    qreal angle = rotation() * M_PI / 180;
-    setPos(x() + 10*qCos(angle), y() + 10*qSin(angle));
-    if(collision())
-        goBack();
-}
-void Tank::goBack()
+void Tank2::goForward()
 {
     qreal angle = rotation() * M_PI / 180;
     setPos(x() - 10*qCos(angle), y() - 10*qSin(angle));
     if(collision())
+        goBack();
+}
+void Tank2::goBack()
+{
+    qreal angle = rotation() * M_PI / 180;
+    setPos(x() + 10*qCos(angle), y() + 10*qSin(angle));
+    if(collision())
         goForward();
 }
 
-void Tank::MykeyPressEvent(int key){
+void Tank2::MykeyPressEvent(int key){
 
-    if(key==Qt::Key_Q&&haveBullet){
+    if(key==Qt::Key_M&&haveBullet){
         haveBullet=false;
-        b1->shoot(x()+18+qCos(rotation() * M_PI / 180)*28,y()+10+qSin(rotation() * M_PI / 180)*28,rotation() * M_PI / 180);
+        b1->shoot(x()+18+qCos(rotation() * M_PI / 180+M_PI)*28,y()+10+qSin(rotation() * M_PI / 180+M_PI)*28,rotation() * M_PI / 180+M_PI);
     }
-    if (key== Qt::Key_A) {
+    if (key== Qt::Key_Left) {
         leftKeyPressed = true;
         if (!rightKeyPressed) {
             turnLeft();
@@ -94,7 +94,7 @@ void Tank::MykeyPressEvent(int key){
         }
     }
 
-    else if (key == Qt::Key_D) {
+    else if (key == Qt::Key_Right) {
         rightKeyPressed = true;
         if (!leftKeyPressed) {
             turnRight();
@@ -116,7 +116,7 @@ void Tank::MykeyPressEvent(int key){
         }
     }
 
-    else if (key == Qt::Key_W) {
+    else if (key == Qt::Key_Up) {
         upKeyPressed = true;
         if (!downKeyPressed) {
 
@@ -135,7 +135,7 @@ void Tank::MykeyPressEvent(int key){
         }
     }
 
-    else if (key == Qt::Key_S) {
+    else if (key == Qt::Key_Down) {
         downKeyPressed = true;
         if (!upKeyPressed) {
             goBack();
@@ -154,15 +154,15 @@ void Tank::MykeyPressEvent(int key){
     }
 }
 
-void Tank::MykeyReleaseEvent(int key) {
-    if (key == Qt::Key_A) {
+
+void Tank2::MykeyReleaseEvent(int key) {
+    if (key == Qt::Key_Left) {
         leftKeyPressed = false;
-    } else if (key == Qt::Key_D) {
+    } else if (key == Qt::Key_Right) {
         rightKeyPressed = false;
-    } else if (key == Qt::Key_W) {
+    } else if (key == Qt::Key_Up) {
         upKeyPressed = false;
-    } else if (key == Qt::Key_S) {
+    } else if (key == Qt::Key_Down) {
         downKeyPressed = false;
     }
 }
-
