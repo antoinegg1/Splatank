@@ -4,7 +4,9 @@
 #include<timeboard.h>
 #include<tank2.h>
 #include"QPainter"
+#include<QTime>
 #include<QGraphicsRectItem>
+#include<QRandomGenerator64>
 
 MyScene::MyScene():shouldDraw(false),circleX(0),circleY(0),count1(0),count2(0)
 {
@@ -36,7 +38,12 @@ void MyScene::bombAt(int color,qreal X,qreal Y)
         {
             qreal dis=(i-X)*(i-X)+(j-Y)*(j-Y);
             if(dis<=1500&&can_be_reached_by_color(X,Y,i,j))
-                map[i][j]=color;
+            {
+                double f=2000/(dis+1500);
+                double tmp = QRandomGenerator::global()->bounded(1.0);
+                if(tmp<=f)
+                    map[i][j]=color;
+            }
         }
     update(QRectF(X-39,Y-39,78,78));
 }
