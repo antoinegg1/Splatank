@@ -10,7 +10,7 @@ MyScene::MyScene():shouldDraw(false),circleX(0),circleY(0),count1(0),count2(0)
 {
     player1 = new Tank(QPixmap("..\\Splatank\\res\\1.png"),(MyScene*)this);
     player2 = new Tank2(QPixmap("..\\Splatank\\res\\2.png"),(MyScene*)this);
-    TimeBoard=new timeBoard(3,(MyScene*)this);
+    TimeBoard=new timeBoard(30,(MyScene*)this);
     addItem(TimeBoard);
     addItem(player1);
     addItem(player2);
