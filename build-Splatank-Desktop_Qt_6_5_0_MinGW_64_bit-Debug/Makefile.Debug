@@ -671,11 +671,11 @@ debug/moc_myview.cpp: ../Splatank/myview.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qframe.h \
 		../Splatank/myscene.h \
-		../Splatank/tank.h \
-		../Splatank/bullet.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qpainterpath.h \
+		../Splatank/tank.h \
+		../Splatank/bullet.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/QTimer \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qbasictimer.h \
@@ -1153,6 +1153,7 @@ debug/moc_timeboard.cpp: ../Splatank/timeboard.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qbrush.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qfont.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qpen.h \
+		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/QTimer \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qbasictimer.h \
@@ -1329,11 +1330,11 @@ debug/moc_widget.cpp: ../Splatank/widget.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qframe.h \
 		../Splatank/myscene.h \
-		../Splatank/tank.h \
-		../Splatank/bullet.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qpainterpath.h \
+		../Splatank/tank.h \
+		../Splatank/bullet.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/QTimer \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qbasictimer.h \
@@ -1909,11 +1910,11 @@ debug/introduce.o: ../Splatank/introduce.cpp ../Splatank/introduce.h \
 		../Splatank/widget.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsScene \
 		../Splatank/myscene.h \
-		../Splatank/tank.h \
-		../Splatank/bullet.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qpainterpath.h \
+		../Splatank/tank.h \
+		../Splatank/bullet.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/QTimer \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qbasictimer.h \
@@ -2091,11 +2092,11 @@ debug/main.o: ../Splatank/main.cpp ../Splatank/widget.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qframe.h \
 		../Splatank/myscene.h \
-		../Splatank/tank.h \
-		../Splatank/bullet.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qpainterpath.h \
+		../Splatank/tank.h \
+		../Splatank/bullet.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/QTimer \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qbasictimer.h \
@@ -2264,15 +2265,43 @@ debug/myscene.o: ../Splatank/myscene.cpp C:/Qt/6.5.0/mingw_64/include/QtCore/QDe
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qpixmap.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qfont.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qpen.h \
+		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
+		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qvariant.h \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/qpainterpath.h \
+		../Splatank/tank.h \
+		../Splatank/bullet.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/QTimer \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qtimer.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qbasictimer.h \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/QKeyEvent \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/qevent.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qiodevice.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qpointer.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qurl.h \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/qeventpoint.h \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/qvector2d.h \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/qvectornd.h \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/qpointingdevice.h \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/qinputdevice.h \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/qscreen.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/QList \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/QObject \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/QRect \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/QSize \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/QSizeF \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/QTransform \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qnativeinterface.h \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/qkeysequence.h \
+		../Splatank/timeboard.h \
+		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsTextItem \
+		../Splatank/tank2.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/QPainter \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qpainter.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qtextoption.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qfontinfo.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qfontmetrics.h \
-		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsRectItem \
-		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
-		C:/Qt/6.5.0/mingw_64/include/QtCore/qvariant.h \
-		C:/Qt/6.5.0/mingw_64/include/QtGui/qpainterpath.h
+		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsRectItem
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\myscene.o ..\Splatank\myscene.cpp
 
 debug/myview.o: ../Splatank/myview.cpp C:/Qt/6.5.0/mingw_64/include/QtCore/QDebug \
@@ -2447,11 +2476,11 @@ debug/myview.o: ../Splatank/myview.cpp C:/Qt/6.5.0/mingw_64/include/QtCore/QDebu
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qframe.h \
 		../Splatank/myscene.h \
-		../Splatank/tank.h \
-		../Splatank/bullet.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qpainterpath.h \
+		../Splatank/tank.h \
+		../Splatank/bullet.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/QTimer \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qbasictimer.h \
@@ -3122,6 +3151,7 @@ debug/timeboard.o: ../Splatank/timeboard.cpp C:/Qt/6.5.0/mingw_64/include/QtCore
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qbrush.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qfont.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qpen.h \
+		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/QTimer \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qbasictimer.h \
@@ -3302,11 +3332,11 @@ debug/widget.o: ../Splatank/widget.cpp ../Splatank/widget.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qabstractscrollarea.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qframe.h \
 		../Splatank/myscene.h \
-		../Splatank/tank.h \
-		../Splatank/bullet.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qpainterpath.h \
+		../Splatank/tank.h \
+		../Splatank/bullet.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/QTimer \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qbasictimer.h \
