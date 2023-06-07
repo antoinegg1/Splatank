@@ -36,8 +36,6 @@ public:
     QGraphicsPixmapItem* player1;
     QGraphicsPixmapItem* player2;
     QGraphicsTextItem* TimeBoard;
-//    void keyPressEvent(QKeyEvent *event) override;
-//    void keyReleaseEvent(QKeyEvent *event) override;
     void myUpdate();
 signals:
     void escSignal();

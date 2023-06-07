@@ -11,13 +11,8 @@ Widget::Widget(QWidget *parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
-
-//    MainScene=new MyScene();
-//    MainScene->setSceneRect(0,0,800,500);
-//    MainView=new MyView(this,MainScene);
-    //MainView->fitInView(MainScene->sceneRect(), Qt::KeepAspectRatio);
-//    QObject::connect(&i,SIGNAL(mySignal()),this,SLOT(tostart()));
-//    QObject::connect(MainScene,SIGNAL(escSignal()),this,SLOT(tostart()));
+    MainScene=nullptr;
+    MainView=nullptr;
 }
 
 Widget::~Widget()
@@ -26,12 +21,15 @@ Widget::~Widget()
 }
 
 void Widget::reshow(){
+    if(MainScene!=nullptr&&MainView!=nullptr)
+    {
+        delete MainScene;
+        delete MainView;
+    }
     show();
 }
 void Widget::on_pushButton_clicked()//start
 {
-    MyScene* MainScene;
-    MyView* MainView;
     MainScene=new MyScene();
     MainScene->setSceneRect(0,0,800,500);
     MainView=new MyView(this,MainScene);

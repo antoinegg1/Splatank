@@ -31,6 +31,7 @@ MyScene::MyScene():shouldDraw(false),circleX(0),circleY(0),count1(0),count2(0)
     timer->start(10); 
 }
 
+
 void MyScene::bombAt(int color,qreal X,qreal Y)
 {
     for(int i=0;i<800;i++)

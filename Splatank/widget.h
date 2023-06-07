@@ -25,11 +25,6 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
     void StartGame();
-    Tank *player1;
-    Tank2 *player2;
-//    introduce i;
-    //void keyPressEvent(QKeyEvent *event) override;
-    //void keyReleaseEvent(QKeyEvent *event) override;
 
 public slots:
     void reshow();
@@ -39,12 +34,7 @@ public slots:
 
 private:
     Ui::Widget *ui;
-//    MyScene* MainScene;
-//    QGraphicsView* MainView;
-    bool wKeyPressed;
-    bool aKeyPressed;
-    bool sKeyPressed;
-    bool dKeyPressed;
-
+    MyScene* MainScene;
+    QGraphicsView* MainView;
 };
 #endif // WIDGET_H

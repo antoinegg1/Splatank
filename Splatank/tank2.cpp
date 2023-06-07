@@ -9,14 +9,9 @@ Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap)
 {
     setFlag(QGraphicsItem::ItemIsFocusable);
     b1=new Bullet(scene,this,-1);
-    leftKeyPressed = false;
-    rightKeyPressed = false;
-    upKeyPressed = false;
-    downKeyPressed = false;
     haveBullet=true;
     parent=scene;
     setPos(700,227);
-    //setFocus();
 }
 
 void Tank2::destroy()
@@ -24,6 +19,7 @@ void Tank2::destroy()
     parent->removeItem(this);
     QTimer::singleShot(3000, [this]() {
         setPos(700,227);
+        setRotation(0);
         parent->addItem(this);
     });
 }
@@ -71,106 +67,5 @@ void Tank2::shoot()
     {
         haveBullet=false;
         b1->shoot(x()+18+qCos(rotation() * M_PI / 180+M_PI)*28,y()+10+qSin(rotation() * M_PI / 180+M_PI)*28,rotation() * M_PI / 180+M_PI);
-    }
-}
-
-void Tank2::MykeyPressEvent(int key){
-
-    if (key== Qt::Key_Left) {
-        leftKeyPressed = true;
-        if (!rightKeyPressed) {
-            turnLeft();
-
-            if(upKeyPressed)
-            {
-                if(!downKeyPressed)
-                {
-                    goForward();
-                }
-            }
-            if(downKeyPressed)
-            {
-                if(!upKeyPressed)
-                {
-                    goBack();
-                }
-            }
-        }
-    }
-
-    else if (key == Qt::Key_Right) {
-        rightKeyPressed = true;
-        if (!leftKeyPressed) {
-            turnRight();
-
-            if(upKeyPressed)
-            {
-                if(!downKeyPressed)
-                {
-                    goForward();
-                }
-            }
-            if(downKeyPressed)
-            {
-                if(!upKeyPressed)
-                {
-                    goBack();
-                }
-            }
-        }
-    }
-
-    else if (key == Qt::Key_Up) {
-        upKeyPressed = true;
-        if (!downKeyPressed) {
-
-            goForward();
-
-            if(leftKeyPressed){
-                if (!rightKeyPressed) {
-                    turnLeft();
-                }
-            }
-            if(rightKeyPressed){
-                if (!leftKeyPressed) {
-                    turnRight();
-                }
-            }
-        }
-    }
-
-    else if (key == Qt::Key_Down) {
-        downKeyPressed = true;
-        if (!upKeyPressed) {
-            goBack();
-
-            if(leftKeyPressed){
-                if (!rightKeyPressed) {
-                    turnLeft();
-                }
-            }
-            if(rightKeyPressed){
-                if (!leftKeyPressed) {
-                    turnRight();
-                }
-            }
-        }
-    }
-
-    else if(key==Qt::Key_M){
-        shoot();
-    }
-}
-
-
-void Tank2::MykeyReleaseEvent(int key) {
-    if (key == Qt::Key_Left) {
-        leftKeyPressed = false;
-    } else if (key == Qt::Key_Right) {
-        rightKeyPressed = false;
-    } else if (key == Qt::Key_Up) {
-        upKeyPressed = false;
-    } else if (key == Qt::Key_Down) {
-        downKeyPressed = false;
     }
 }

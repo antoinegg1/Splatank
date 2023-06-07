@@ -14,9 +14,6 @@ public:
 
     Bullet *b1;
     bool haveBullet;
-
-    void MykeyPressEvent(int key) ;
-    void MykeyReleaseEvent(int key) ;
     void destroy();
     void turnLeft();
     void turnRight();
@@ -31,10 +28,6 @@ public:
 protected:
 
 private:
-    bool leftKeyPressed;
-    bool upKeyPressed;
-    bool rightKeyPressed;
-    bool downKeyPressed;
     bool collision();
     QGraphicsScene *parent;
 };
