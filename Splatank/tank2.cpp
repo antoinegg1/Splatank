@@ -15,7 +15,6 @@ Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap)
     downKeyPressed = false;
     haveBullet=true;
     parent=scene;
-    parent->addItem(this);
     setPos(700,227);
     //setFocus();
 }
@@ -40,38 +39,43 @@ bool Tank2::collision()
 void Tank2::turnLeft()
 {
     setTransformOriginPoint(boundingRect().center());
-    setRotation(rotation() - 8);
+    setRotation(rotation() - 3);
     if(collision())
         turnRight();
 }
 void Tank2::turnRight()
 {
     setTransformOriginPoint(boundingRect().center());
-    setRotation(rotation() + 8);
+    setRotation(rotation() + 3);
     if(collision())
         turnLeft();
 }
 void Tank2::goForward()
 {
     qreal angle = rotation() * M_PI / 180;
-    setPos(x() - 10*qCos(angle), y() - 10*qSin(angle));
+    setPos(x() - 3*qCos(angle), y() - 3*qSin(angle));
     if(collision())
         goBack();
 }
 void Tank2::goBack()
 {
     qreal angle = rotation() * M_PI / 180;
-    setPos(x() + 10*qCos(angle), y() + 10*qSin(angle));
+    setPos(x() + 3*qCos(angle), y() + 3*qSin(angle));
     if(collision())
         goForward();
 }
 
-void Tank2::MykeyPressEvent(int key){
-
-    if(key==Qt::Key_M&&haveBullet){
+void Tank2::shoot()
+{
+    if(haveBullet)
+    {
         haveBullet=false;
         b1->shoot(x()+18+qCos(rotation() * M_PI / 180+M_PI)*28,y()+10+qSin(rotation() * M_PI / 180+M_PI)*28,rotation() * M_PI / 180+M_PI);
     }
+}
+
+void Tank2::MykeyPressEvent(int key){
+
     if (key== Qt::Key_Left) {
         leftKeyPressed = true;
         if (!rightKeyPressed) {
@@ -151,6 +155,10 @@ void Tank2::MykeyPressEvent(int key){
                 }
             }
         }
+    }
+
+    else if(key==Qt::Key_M){
+        shoot();
     }
 }
 

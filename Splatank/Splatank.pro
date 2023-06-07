@@ -18,6 +18,7 @@ SOURCES += \
     setting.cpp \
     tank.cpp \
     tank2.cpp \
+    timeboard.cpp \
     widget.cpp
 
 HEADERS += \
@@ -29,6 +30,7 @@ HEADERS += \
     setting.h \
     tank.h \
     tank2.h \
+    timeboard.h \
     widget.h
 
 FORMS += \

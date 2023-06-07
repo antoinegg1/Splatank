@@ -39,7 +39,7 @@ namespace {
 struct qt_meta_stringdata_CLASSWidgetENDCLASS_t {};
 static constexpr auto qt_meta_stringdata_CLASSWidgetENDCLASS = QtMocHelpers::stringData(
     "Widget",
-    "tostart",
+    "reshow",
     "",
     "on_pushButton_clicked",
     "on_pushButton_2_clicked",
@@ -49,7 +49,7 @@ static constexpr auto qt_meta_stringdata_CLASSWidgetENDCLASS = QtMocHelpers::str
 struct qt_meta_stringdata_CLASSWidgetENDCLASS_t {
     uint offsetsAndSizes[12];
     char stringdata0[7];
-    char stringdata1[8];
+    char stringdata1[7];
     char stringdata2[1];
     char stringdata3[22];
     char stringdata4[24];
@@ -60,14 +60,14 @@ struct qt_meta_stringdata_CLASSWidgetENDCLASS_t {
 Q_CONSTINIT static const qt_meta_stringdata_CLASSWidgetENDCLASS_t qt_meta_stringdata_CLASSWidgetENDCLASS = {
     {
         QT_MOC_LITERAL(0, 6),  // "Widget"
-        QT_MOC_LITERAL(7, 7),  // "tostart"
-        QT_MOC_LITERAL(15, 0),  // ""
-        QT_MOC_LITERAL(16, 21),  // "on_pushButton_clicked"
-        QT_MOC_LITERAL(38, 23),  // "on_pushButton_2_clicked"
-        QT_MOC_LITERAL(62, 23)   // "on_pushButton_3_clicked"
+        QT_MOC_LITERAL(7, 6),  // "reshow"
+        QT_MOC_LITERAL(14, 0),  // ""
+        QT_MOC_LITERAL(15, 21),  // "on_pushButton_clicked"
+        QT_MOC_LITERAL(37, 23),  // "on_pushButton_2_clicked"
+        QT_MOC_LITERAL(61, 23)   // "on_pushButton_3_clicked"
     },
     "Widget",
-    "tostart",
+    "reshow",
     "",
     "on_pushButton_clicked",
     "on_pushButton_2_clicked",
@@ -91,10 +91,10 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSWidgetENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   38,    2, 0x08,    1 /* Private */,
-       3,    0,   39,    2, 0x08,    2 /* Private */,
-       4,    0,   40,    2, 0x08,    3 /* Private */,
-       5,    0,   41,    2, 0x08,    4 /* Private */,
+       1,    0,   38,    2, 0x0a,    1 /* Public */,
+       3,    0,   39,    2, 0x0a,    2 /* Public */,
+       4,    0,   40,    2, 0x0a,    3 /* Public */,
+       5,    0,   41,    2, 0x0a,    4 /* Public */,
 
  // slots: parameters
     QMetaType::Void,
@@ -114,7 +114,7 @@ Q_CONSTINIT const QMetaObject Widget::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSWidgetENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<Widget, std::true_type>,
-        // method 'tostart'
+        // method 'reshow'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'on_pushButton_clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
@@ -132,7 +132,7 @@ void Widget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         auto *_t = static_cast<Widget *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->tostart(); break;
+        case 0: _t->reshow(); break;
         case 1: _t->on_pushButton_clicked(); break;
         case 2: _t->on_pushButton_2_clicked(); break;
         case 3: _t->on_pushButton_3_clicked(); break;

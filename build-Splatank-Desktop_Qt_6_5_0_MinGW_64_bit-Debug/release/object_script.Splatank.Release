@@ -12,6 +12,7 @@ release/widget.o
 release/qrc_pic.o
 release/moc_bullet.o
 release/moc_introduce.o
+release/moc_myscene.o
 release/moc_myview.o
 release/moc_setting.o
 release/moc_tank2.o

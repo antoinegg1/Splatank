@@ -1,11 +1,34 @@
 #include<QDebug>
 #include "myscene.h"
+#include<tank.h>
+#include<timeboard.h>
+#include<tank2.h>
 #include"QPainter"
+#include<QTime>
 #include<QGraphicsRectItem>
+#include<QRandomGenerator64>
 
 MyScene::MyScene():shouldDraw(false),circleX(0),circleY(0),count1(0),count2(0)
 {
-    memset(map,0,sizeof(map));
+    player1 = new Tank(QPixmap("..\\Splatank\\res\\1.png"),(MyScene*)this);
+    player2 = new Tank2(QPixmap("..\\Splatank\\res\\2.png"),(MyScene*)this);
+    TimeBoard=new timeBoard(30,(MyScene*)this);
+    addItem(TimeBoard);
+    addItem(player1);
+    addItem(player2);
+    aKeyPressed=false;
+    dKeyPressed=false;
+    wKeyPressed=false;
+    sKeyPressed=false;
+    qKeyPressed=false;
+    leftKeyPressed=false;
+    rightKeyPressed=false;
+    upKeyPressed=false;
+    downKeyPressed=false;
+    mKeyPressed=false;
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &MyScene::myUpdate);
+    timer->start(10); 
 }
 
 void MyScene::bombAt(int color,qreal X,qreal Y)
@@ -15,8 +38,14 @@ void MyScene::bombAt(int color,qreal X,qreal Y)
         {
             qreal dis=(i-X)*(i-X)+(j-Y)*(j-Y);
             if(dis<=1500&&can_be_reached_by_color(X,Y,i,j))
-                map[i][j]=color;
+            {
+                double f=2000/(dis+1500);
+                double tmp = QRandomGenerator::global()->bounded(1.0);
+                if(tmp<=f)
+                    map[i][j]=color;
+            }
         }
+    update(QRectF(X-39,Y-39,78,78));
 }
 
 void MyScene::init_map()
@@ -101,27 +130,18 @@ bool MyScene::can_be_reached_by_color(int sx,int sy,int ex,int ey)
     return true;
 }
 
-void MyScene::drawBackground(QPainter *painter, const QRectF &rect) {
+void MyScene::drawBackground(QPainter* ptr, const QRectF &rect)
+{
     // 绘制背景
-    if(1)//(shouldDraw)
+    for(int i=0;i<800;i++)
     {
-
-        for(int i=0;i<800;i++)
-            for(int j=0;j<500;j++)
-            {
-                if(map[i][j]==1)
-                {
-                    //painter->setBrush(Qt::white);
-                    painter->fillRect(QRectF(i,j,1,1),QBrush(Qt::red));
-                }
-                if(map[i][j]==-1)
-                {
-                   painter->fillRect(QRectF(i,j,1,1),QBrush(Qt::green));
-                }
-            }
-        //painter->drawEllipse(QRectF(circleX-50, circleY-50, 100, 100));
-        shouldDraw=false;
-
+        for(int j=0;j<500;j++)
+        {
+            if(map[i][j]==1)
+                ptr->fillRect(QRectF(i,j,1,1),QBrush(Qt::red));
+            if(map[i][j]==-1)
+                ptr->fillRect(QRectF(i,j,1,1),QBrush(Qt::green));
+        }
     }
 }
 
@@ -141,5 +161,92 @@ void MyScene::endGame()
         qDebug()<<"2win";
     else
         qDebug()<<"noWin";
+
+}
+
+void MyScene::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key()==Qt::Key_A)
+        aKeyPressed=true;
+    if(event->key()==Qt::Key_D)
+        dKeyPressed=true;
+    if(event->key()==Qt::Key_W)
+        wKeyPressed=true;
+    if(event->key()==Qt::Key_S)
+        sKeyPressed=true;
+    if(event->key()==Qt::Key_Q)
+        qKeyPressed=true;
+    if(event->key()==Qt::Key_Left)
+        leftKeyPressed=true;
+    if(event->key()==Qt::Key_Right)
+        rightKeyPressed=true;
+    if(event->key()==Qt::Key_Up)
+        upKeyPressed=true;
+    if(event->key()==Qt::Key_Down)
+        downKeyPressed=true;
+    if(event->key()==Qt::Key_M)
+        mKeyPressed=true;
+    if(event->key()==Qt::Key_Escape){
+        emit escSignal();
+    }
+}
+
+void MyScene::keyReleaseEvent(QKeyEvent *event)
+{
+    if(event->key()==Qt::Key_A)
+        aKeyPressed=false;
+    if(event->key()==Qt::Key_D)
+        dKeyPressed=false;
+    if(event->key()==Qt::Key_W)
+        wKeyPressed=false;
+    if(event->key()==Qt::Key_S)
+        sKeyPressed=false;
+    if(event->key()==Qt::Key_Q)
+        qKeyPressed=false;
+    if(event->key()==Qt::Key_Left)
+        leftKeyPressed=false;
+    if(event->key()==Qt::Key_Right)
+        rightKeyPressed=false;
+    if(event->key()==Qt::Key_Up)
+        upKeyPressed=false;
+    if(event->key()==Qt::Key_Down)
+        downKeyPressed=false;
+    if(event->key()==Qt::Key_M)
+        mKeyPressed=false;
+
+}
+
+void MyScene::myUpdate()
+{
+    if(aKeyPressed)
+        ((Tank*)player1)->turnLeft();
+    if(dKeyPressed)
+        ((Tank*)player1)->turnRight();
+    if(wKeyPressed)
+        ((Tank*)player1)->goForward();
+    if(sKeyPressed)
+        ((Tank*)player1)->goBack();
+    if(qKeyPressed)
+        ((Tank*)player1)->shoot();
+
+    if(leftKeyPressed)
+        ((Tank2*)player2)->turnLeft();
+    if(rightKeyPressed)
+        ((Tank2*)player2)->turnRight();
+    if(upKeyPressed)
+        ((Tank2*)player2)->goForward();
+    if(downKeyPressed)
+        ((Tank2*)player2)->goBack();
+    if(mKeyPressed)
+        ((Tank2*)player2)->shoot();
+
+    if(((Tank*)player1)->haveBullet==false)
+    {
+        ((Tank*)player1)->b1->moveBy();
+    }
+    if(((Tank2*)player2)->haveBullet==false)
+    {
+        ((Tank2*)player2)->b1->moveBy();
+    }
 
 }

@@ -10,9 +10,10 @@ public:
     Bullet(MyScene* scene, QGraphicsPixmapItem* tank,int Color);
     ~Bullet();
     void shoot(qreal X,qreal Y,qreal angle);
+    void moveBy() ;
 
 private slots:
-    void moveBy() ;
+    //void moveBy() ;
 
 private:
     qreal speed;

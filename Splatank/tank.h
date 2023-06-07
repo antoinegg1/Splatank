@@ -16,19 +16,19 @@ public:
     void MykeyPressEvent(int key) ;
     void MykeyReleaseEvent(int key);
     void destroy();
+    void turnLeft();
+    void turnRight();
+    void goForward();
+    void goBack();
+    void shoot();
 
 protected:
-    void shoot();
 
 private:
     bool leftKeyPressed;
     bool upKeyPressed;
     bool rightKeyPressed;
     bool downKeyPressed;
-    void turnLeft();
-    void turnRight();
-    void goForward();
-    void goBack();
     bool collision();
     QGraphicsScene *parent;
 };

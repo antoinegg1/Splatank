@@ -25,26 +25,22 @@ public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
     void StartGame();
-
     Tank *player1;
     Tank2 *player2;
-    introduce i;
+//    introduce i;
     //void keyPressEvent(QKeyEvent *event) override;
     //void keyReleaseEvent(QKeyEvent *event) override;
 
-protected:
-
-private slots:
-    void tostart();
-
+public slots:
+    void reshow();
     void on_pushButton_clicked();
     void on_pushButton_2_clicked();
     void on_pushButton_3_clicked();
 
 private:
     Ui::Widget *ui;
-    MyScene* MainScene;
-    QGraphicsView* MainView;
+//    MyScene* MainScene;
+//    QGraphicsView* MainView;
     bool wKeyPressed;
     bool aKeyPressed;
     bool sKeyPressed;

@@ -17,9 +17,9 @@ Bullet::Bullet(MyScene* scene,QGraphicsPixmapItem* tank,int Color) : QGraphicsPi
     startX=0;
     startY=0;
     parentTank=tank;
-    QTimer *timer = new QTimer(this);
-    connect(timer, &QTimer::timeout, this, &Bullet::moveBy);
-    timer->start(10);
+    //QTimer *timer = new QTimer(this);
+    //connect(timer, &QTimer::timeout, this, &Bullet::moveBy);
+    //timer->start(10);
 }
 
 Bullet::~Bullet()
@@ -46,10 +46,10 @@ void Bullet:: moveBy() {
             if(!bomb)
             {
                 bomb=true;
-                parent->shouldDraw=true;
+                //parent->shouldDraw=true;
                 parent->bombAt(color,x()+5,y()+4);
                 parent->removeItem(this);
-                parent->update();
+                //parent->update();
                 if(color==1)
                     ((Tank*)parentTank)->haveBullet=true;
                 else if(color==-1)
@@ -60,7 +60,6 @@ void Bullet:: moveBy() {
                         ((Tank*)item)->destroy();
                     if (item->type() == Tank2::Type)
                         ((Tank2*)item)->destroy();
-
                 }
             }
         }

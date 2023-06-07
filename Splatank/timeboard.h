@@ -9,6 +9,7 @@ class timeBoard :public QGraphicsTextItem
     Q_OBJECT
 public:
     timeBoard(int CountdownSeconds,MyScene* scene);
+    QTimer *timer;
 
 private slots:
     void updateCountdown();
@@ -17,7 +18,6 @@ protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
 
 private:
-    QTimer *timer;
     int countdownSeconds;
     MyScene* parent;
 };

@@ -11,7 +11,7 @@ timeBoard::timeBoard(int CountdownSeconds,MyScene* scene): QGraphicsTextItem(), 
     // 创建定时器
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &timeBoard::updateCountdown);
-    timer->start(1000);
+    //timer->start(1000);
     setPos(368,225);
     QFont font = this->font();
     font.setPointSize(24);

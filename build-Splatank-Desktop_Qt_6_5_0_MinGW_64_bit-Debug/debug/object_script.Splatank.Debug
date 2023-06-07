@@ -12,6 +12,7 @@ debug/widget.o
 debug/qrc_pic.o
 debug/moc_bullet.o
 debug/moc_introduce.o
+debug/moc_myscene.o
 debug/moc_myview.o
 debug/moc_setting.o
 debug/moc_tank2.o

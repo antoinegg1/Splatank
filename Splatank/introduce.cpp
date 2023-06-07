@@ -20,5 +20,6 @@ introduce::~introduce()
 void introduce::on_pushButton_clicked()
 {
     emit mySignal();
+    this->close();
 }
 
