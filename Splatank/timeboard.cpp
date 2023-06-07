@@ -35,9 +35,13 @@ void timeBoard::updateCountdown()
     countdownSeconds--;
     setPlainText(QString::number(countdownSeconds));
     // 倒计时结束
-    if (countdownSeconds == 0)
+    if (countdownSeconds == -1)
     {
         timer->stop();
+        QFont font =this->font();
+        font.setPointSize(12);
+        setFont(font);
+        setPlainText("The Winner is……");
         parent->endGame();
     }
 }

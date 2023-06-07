@@ -21,8 +21,12 @@ class MyScene: public QGraphicsScene
     bool mKeyPressed;
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
+    int changeX;
+    int changeY;
+    QGraphicsTextItem* winner;
 public:
     MyScene();
+    void addWinner();
     void drawBackground(QPainter* ptr, const QRectF &rect) override;
     void bombAt(int color,qreal X,qreal Y);
     void init_map();

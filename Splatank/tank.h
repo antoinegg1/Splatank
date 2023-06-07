@@ -11,20 +11,27 @@ class Tank : public QGraphicsPixmapItem
 public:
     Tank(const QPixmap &pixmap, MyScene *scene);
 
-    Bullet *b1;
-    bool haveBullet;
+    Bullet *b[3];
+    int bulletNum;
     void destroy();
     void turnLeft();
     void turnRight();
     void goForward();
     void goBack();
     void shoot();
+    bool destroyed;
+    enum { Type = UserType + 2 };
+    int type() const override {
+        return Type;
+    }
 
 protected:
 
 private:
     bool collision();
     QGraphicsScene *parent;
+    bool shootCD;
+    int bulletTurn;
 };
 
 

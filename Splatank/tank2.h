@@ -12,8 +12,8 @@ class Tank2 : public QObject,public QGraphicsPixmapItem{
 public:
     Tank2(const QPixmap &pixmap, MyScene *scene);
 
-    Bullet *b1;
-    bool haveBullet;
+    Bullet *b[3];
+    int bulletNum;
     void destroy();
     void turnLeft();
     void turnRight();
@@ -24,12 +24,15 @@ public:
     int type() const override {
         return Type;
     }
+    bool destroyed;
 
 protected:
 
 private:
     bool collision();
     QGraphicsScene *parent;
+    bool shootCD;
+    int bulletTurn;
 };
 
 

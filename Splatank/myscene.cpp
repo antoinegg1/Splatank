@@ -6,13 +6,18 @@
 #include"QPainter"
 #include<QTime>
 #include<QGraphicsRectItem>
+#include<QApplication>
 #include<QRandomGenerator64>
+#include<qtransform.h>
+#include <windows.h>
+#include<QThread>
+#include<QGraphicsTextItem>
 
 MyScene::MyScene():shouldDraw(false),circleX(0),circleY(0),count1(0),count2(0)
 {
     player1 = new Tank(QPixmap("..\\Splatank\\res\\1.png"),(MyScene*)this);
     player2 = new Tank2(QPixmap("..\\Splatank\\res\\2.png"),(MyScene*)this);
-    TimeBoard=new timeBoard(30,(MyScene*)this);
+    TimeBoard=new timeBoard(60,(MyScene*)this);
     addItem(TimeBoard);
     addItem(player1);
     addItem(player2);
@@ -28,17 +33,22 @@ MyScene::MyScene():shouldDraw(false),circleX(0),circleY(0),count1(0),count2(0)
     mKeyPressed=false;
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MyScene::myUpdate);
-    timer->start(10); 
+    timer->start(33);
+    changeX=0;
+    changeY=0;
+    QGraphicsTextItem* winner= nullptr;
 }
 
 
 void MyScene::bombAt(int color,qreal X,qreal Y)
 {
-    for(int i=0;i<800;i++)
-        for(int j=0;j<500;j++)
+    changeX=fmax(0,X-75);
+    changeY=fmax(0,Y-75);
+    for(int i=changeX;i<fmin(800,changeX+150);i++)
+        for(int j=changeY;j<fmin(500,changeY+150);j++)
         {
             qreal dis=(i-X)*(i-X)+(j-Y)*(j-Y);
-            if(dis<=1500&&can_be_reached_by_color(X,Y,i,j))
+            if(dis<=5625&&can_be_reached_by_color(X,Y,i,j))
             {
                 double f=2000/(dis+1500);
                 double tmp = QRandomGenerator::global()->bounded(1.0);
@@ -46,7 +56,7 @@ void MyScene::bombAt(int color,qreal X,qreal Y)
                     map[i][j]=color;
             }
         }
-    update(QRectF(X-39,Y-39,78,78));
+    update(QRectF(X-75,Y-75,150,150));
 }
 
 void MyScene::init_map()
@@ -56,7 +66,7 @@ void MyScene::init_map()
     count2=0;
     for (int x = 0; x < 800; x++) {
         for (int y = 0; y < 500; y++) {
-            if (x < 15 || x >= 800 - 15 || y < 15 || y >= 500 - 15) {
+            if (x < 8 || x >= 800 - 8 || y < 8 || y >= 500 - 8) {
                 map[x][y] = 10; // 将边界墙标记为障碍物
             }
         }
@@ -134,35 +144,109 @@ bool MyScene::can_be_reached_by_color(int sx,int sy,int ex,int ey)
 void MyScene::drawBackground(QPainter* ptr, const QRectF &rect)
 {
     // 绘制背景
-    for(int i=0;i<800;i++)
+    for(int i=rect.x();i<rect.x()+rect.width();i++)
     {
-        for(int j=0;j<500;j++)
+        for(int j=rect.y();j<rect.y()+rect.height();j++)
         {
             if(map[i][j]==1)
                 ptr->fillRect(QRectF(i,j,1,1),QBrush(Qt::red));
             if(map[i][j]==-1)
                 ptr->fillRect(QRectF(i,j,1,1),QBrush(Qt::green));
+            if(map[i][j]==2)
+                ptr->fillRect(QRectF(i,j,1,1),QBrush(Qt::black));
         }
     }
 }
 
 void MyScene::endGame()
 {
+    removeItem(player1);
+    removeItem(player2);
+    ((Tank*)player1)->destroyed=true;
+    ((Tank2*)player2)->destroyed=true;
     for(int i=0;i<800;i++)
         for(int j=0;j<500;j++)
         {
+            QTransform transform;
             if(map[i][j]==1)
                 count1++;
             if(map[i][j]==-1)
                 count2++;
         }
     if(count1>count2)
-        qDebug()<<"1win";
-    else if(count2>count1)
-        qDebug()<<"2win";
+        winner=new QGraphicsTextItem("<--");
+    else if(count1<count2)
+        winner=new QGraphicsTextItem("-->");
     else
-        qDebug()<<"noWin";
+        winner=new QGraphicsTextItem("<->");
+    QFont font = winner->font();
+    font.setPointSize(48);
+    winner->setFont(font);
+    int col;
+    col=(800*count1)/(count1+count2);
+    if(count1==count2)
+        col=400;
+    QTimer::singleShot(1500, [this]() {
+        removeItem(TimeBoard);
+    });
+    QTimer::singleShot(1600, [this,col]() {
+        for(int i=0;i<800;i++)
+        {
+            if(i==399||i==400)
+                for(int j=0;j<500;j++)
+                    map[i][j]=2;
+            else if(i<=col)
+                for(int j=0;j<500;j++)
+                    map[i][j]=1;
+            else
+                for(int j=0;j<500;j++)
+                    map[i][j]=-1;
+        }
+    });
+    col=fmin(col,800-col)/10;
+    QTimer::singleShot(1200,[this,col](){
+        ;
+        QTimer::singleShot(500, [this,col]() {
+            update(0*col,0,col,500);
+            QTimer::singleShot(0, [this,col]() {
+                update(800-col,0,col,500);
+                QTimer::singleShot(500, [this,col]() {
+                    update(col,0,col,500);
+                    QTimer::singleShot(0, [this,col]() {
+                        update(800-2*col,0,col,500);
+                        QTimer::singleShot(500, [this,col]() {
+                            update(2*col,0,col,500);
+                            QTimer::singleShot(0, [this,col]() {
+                                update(800-3*col,0,col,500);
+                                QTimer::singleShot(500, [this,col]() {
+                                    update(3*col,0,col,500);
+                                    QTimer::singleShot(0, [this,col]() {
+                                        update(800-4*col,0,col,500);
+                                        QTimer::singleShot(500, [this,col]() {
+                                            update(4*col,0,col,500);
+                                            QTimer::singleShot(0, [this,col]() {
+                                                update(800-5*col,0,col,500);
+                                                QTimer::singleShot(1000, [this]() {
+                                                    addWinner();
+                                                    update(0,0,800,500);
+                                                });
+                                            });
+                                        });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+}
 
+void MyScene::addWinner()
+{
+    winner->setPos(335,205);
+    addItem(winner);
 }
 
 void MyScene::keyPressEvent(QKeyEvent *event)
@@ -241,13 +325,29 @@ void MyScene::myUpdate()
     if(mKeyPressed)
         ((Tank2*)player2)->shoot();
 
-    if(((Tank*)player1)->haveBullet==false)
+    if(((Tank*)player1)->b[0]->shooted==true)
     {
-        ((Tank*)player1)->b1->moveBy();
+        ((Tank*)player1)->b[0]->moveBy();
     }
-    if(((Tank2*)player2)->haveBullet==false)
+    if(((Tank*)player1)->b[1]->shooted==true)
     {
-        ((Tank2*)player2)->b1->moveBy();
+        ((Tank*)player1)->b[1]->moveBy();
+    }
+    if(((Tank*)player1)->b[2]->shooted==true)
+    {
+        ((Tank*)player1)->b[2]->moveBy();
+    }
+    if(((Tank2*)player2)->b[0]->shooted==true)
+    {
+        ((Tank2*)player2)->b[0]->moveBy();
+    }
+    if(((Tank2*)player2)->b[1]->shooted==true)
+    {
+        ((Tank2*)player2)->b[1]->moveBy();
+    }
+    if(((Tank2*)player2)->b[2]->shooted==true)
+    {
+        ((Tank2*)player2)->b[2]->moveBy();
     }
 
 }

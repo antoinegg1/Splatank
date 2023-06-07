@@ -2560,8 +2560,30 @@ release/myscene.o: ../Splatank/myscene.cpp C:/Qt/6.5.0/mingw_64/include/QtCore/Q
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qcalendar.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qlocale.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsRectItem \
+		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QApplication \
+		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qapplication.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qcoreapplication.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qeventloop.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qcoreapplication_platform.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qfuture.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qfutureinterface.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qmutex.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qtsan_impl.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qresultstore.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qfuture_impl.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qthreadpool.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qthread.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qdeadlinetimer.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qelapsedtimer.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qrunnable.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qexception.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qpromise.h \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/qguiapplication.h \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/qinputmethod.h \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/qguiapplication_platform.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/QRandomGenerator64 \
-		C:/Qt/6.5.0/mingw_64/include/QtCore/qrandom.h
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qrandom.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/QThread
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\myscene.o ..\Splatank\myscene.cpp
 
 release/myview.o: ../Splatank/myview.cpp C:/Qt/6.5.0/mingw_64/include/QtCore/QDebug \
@@ -3117,7 +3139,8 @@ release/tank.o: ../Splatank/tank.cpp C:/Qt/6.5.0/mingw_64/include/QtCore/QDebug 
 		C:/Qt/6.5.0/mingw_64/include/QtCore/QTimer \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qtimer.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qbasictimer.h \
-		C:/Qt/6.5.0/mingw_64/include/QtGui/QKeyEvent
+		C:/Qt/6.5.0/mingw_64/include/QtGui/QKeyEvent \
+		../Splatank/tank2.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\tank.o ..\Splatank\tank.cpp
 
 release/tank2.o: ../Splatank/tank2.cpp C:/Qt/6.5.0/mingw_64/include/QtCore/QDebug \
@@ -3220,14 +3243,7 @@ release/tank2.o: ../Splatank/tank2.cpp C:/Qt/6.5.0/mingw_64/include/QtCore/QDebu
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qhash.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qvarlengtharray.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/q20memory.h \
-		../Splatank/tank2.h \
-		C:/Qt/6.5.0/mingw_64/include/QtCore/QTimer \
-		C:/Qt/6.5.0/mingw_64/include/QtCore/qtimer.h \
-		C:/Qt/6.5.0/mingw_64/include/QtCore/qbasictimer.h \
-		C:/Qt/6.5.0/mingw_64/include/QtCore/qobject.h \
-		C:/Qt/6.5.0/mingw_64/include/QtCore/qcoreevent.h \
-		C:/Qt/6.5.0/mingw_64/include/QtCore/qobject_impl.h \
-		C:/Qt/6.5.0/mingw_64/include/QtCore/qbindingstorage.h \
+		../Splatank/tank.h \
 		../Splatank/bullet.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/QGraphicsPixmapItem \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qgraphicsitem.h \
@@ -3237,6 +3253,10 @@ release/tank2.o: ../Splatank/tank2.cpp C:/Qt/6.5.0/mingw_64/include/QtCore/QDebu
 		C:/Qt/6.5.0/mingw_64/include/QtGui/qtguiexports.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qtwidgets-config.h \
 		C:/Qt/6.5.0/mingw_64/include/QtWidgets/qtwidgetsexports.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qobject.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qcoreevent.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qobject_impl.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qbindingstorage.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qvariant.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qrect.h \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qmargins.h \
@@ -3290,7 +3310,11 @@ release/tank2.o: ../Splatank/tank2.cpp C:/Qt/6.5.0/mingw_64/include/QtCore/QDebu
 		C:/Qt/6.5.0/mingw_64/include/QtCore/QSizeF \
 		C:/Qt/6.5.0/mingw_64/include/QtGui/QTransform \
 		C:/Qt/6.5.0/mingw_64/include/QtCore/qnativeinterface.h \
-		C:/Qt/6.5.0/mingw_64/include/QtGui/QKeyEvent
+		C:/Qt/6.5.0/mingw_64/include/QtCore/QTimer \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qtimer.h \
+		C:/Qt/6.5.0/mingw_64/include/QtCore/qbasictimer.h \
+		C:/Qt/6.5.0/mingw_64/include/QtGui/QKeyEvent \
+		../Splatank/tank2.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\tank2.o ..\Splatank\tank2.cpp
 
 release/timeboard.o: ../Splatank/timeboard.cpp C:/Qt/6.5.0/mingw_64/include/QtCore/QDebug \

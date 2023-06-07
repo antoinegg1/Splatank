@@ -11,9 +11,10 @@ public:
     ~Bullet();
     void shoot(qreal X,qreal Y,qreal angle);
     void moveBy() ;
+    bool bomb;
+    bool shooted;
 
 private slots:
-    //void moveBy() ;
 
 private:
     qreal speed;
@@ -21,7 +22,6 @@ private:
     qreal dy;
     qreal startX;
     qreal startY;
-    bool bomb;
     int color;
     MyScene* parent;
     QGraphicsPixmapItem* parentTank;
