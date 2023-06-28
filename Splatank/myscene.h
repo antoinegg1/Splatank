@@ -8,7 +8,7 @@
 class MyScene: public QGraphicsScene
 {
     Q_OBJECT
-    int map[800][500];
+    int map[800][550];
     bool aKeyPressed;
     bool dKeyPressed;
     bool wKeyPressed;

@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     board.cpp \
     bullet.cpp \
+    config.cpp \
     introduce.cpp \
     main.cpp \
     myscene.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
 HEADERS += \
     board.h \
     bullet.h \
+    config.h \
     introduce.h \
     myscene.h \
     myview.h \

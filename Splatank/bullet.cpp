@@ -6,12 +6,13 @@
 #include<bullet.h>
 #include<tank.h>
 #include<tank2.h>
+#include<config.h>
 
 
 Bullet::Bullet(MyScene* scene,QGraphicsPixmapItem* tank,int Color) : QGraphicsPixmapItem(QPixmap("..\\Splatank\\res\\bullet.png")),color(Color)
 {
     parent=scene;
-    speed = 12;
+    speed = BULLET_SPEED;
     dx = 0;
     dy = 0;
     startX=0;

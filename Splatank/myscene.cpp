@@ -12,12 +12,13 @@
 #include <windows.h>
 #include<QThread>
 #include<QGraphicsTextItem>
+#include<config.h>
 
 MyScene::MyScene():shouldDraw(false),circleX(0),circleY(0),count1(0),count2(0)
 {
     player1 = new Tank(QPixmap("..\\Splatank\\res\\1.png"),(MyScene*)this);
     player2 = new Tank2(QPixmap("..\\Splatank\\res\\2.png"),(MyScene*)this);
-    TimeBoard=new timeBoard(60,(MyScene*)this);
+    TimeBoard=new timeBoard(TIME,(MyScene*)this);
     addItem(TimeBoard);
     addItem(player1);
     addItem(player2);
@@ -33,7 +34,7 @@ MyScene::MyScene():shouldDraw(false),circleX(0),circleY(0),count1(0),count2(0)
     mKeyPressed=false;
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MyScene::myUpdate);
-    timer->start(33);
+    timer->start(10);
     changeX=0;
     changeY=0;
     QGraphicsTextItem* winner= nullptr;
@@ -53,7 +54,7 @@ void MyScene::bombAt(int color,qreal X,qreal Y)
                 double f=2000/(dis+1500);
                 double tmp = QRandomGenerator::global()->bounded(1.0);
                 if(tmp<=f)
-                    map[i][j]=color;
+                {map[i][j]=color;}
             }
         }
     update(QRectF(X-75,Y-75,150,150));
@@ -144,16 +145,16 @@ bool MyScene::can_be_reached_by_color(int sx,int sy,int ex,int ey)
 void MyScene::drawBackground(QPainter* ptr, const QRectF &rect)
 {
     // 绘制背景
-    for(int i=rect.x();i<rect.x()+rect.width();i++)
+    for(int i=rect.x();i<rect.x()+rect.width();i+=PAINT_ACCURACY)
     {
-        for(int j=rect.y();j<rect.y()+rect.height();j++)
+        for(int j=rect.y();j<rect.y()+rect.height();j+=PAINT_ACCURACY)
         {
-            if(map[i][j]==1)
-                ptr->fillRect(QRectF(i,j,1,1),QBrush(Qt::red));
-            if(map[i][j]==-1)
-                ptr->fillRect(QRectF(i,j,1,1),QBrush(Qt::green));
-            if(map[i][j]==2)
-                ptr->fillRect(QRectF(i,j,1,1),QBrush(Qt::black));
+            if(map[i-i%PAINT_ACCURACY][j-j%PAINT_ACCURACY]==1)
+                ptr->fillRect(QRectF(i-i%PAINT_ACCURACY,j-j%PAINT_ACCURACY,PAINT_ACCURACY,PAINT_ACCURACY),QBrush(Qt::red));
+            if(map[i-i%PAINT_ACCURACY][j-j%PAINT_ACCURACY]==-1)
+                ptr->fillRect(QRectF(i-i%PAINT_ACCURACY,j-j%PAINT_ACCURACY,PAINT_ACCURACY,PAINT_ACCURACY),QBrush(Qt::green));
+            if(map[i-i%PAINT_ACCURACY][j-j%PAINT_ACCURACY]==2)
+                ptr->fillRect(QRectF(i-i%PAINT_ACCURACY,j-j%PAINT_ACCURACY,PAINT_ACCURACY,PAINT_ACCURACY),QBrush(Qt::black));
         }
     }
 }
@@ -193,13 +194,13 @@ void MyScene::endGame()
         for(int i=0;i<800;i++)
         {
             if(i==399||i==400)
-                for(int j=0;j<500;j++)
+                for(int j=500;j<550;j++)
                     map[i][j]=2;
             else if(i<=col)
-                for(int j=0;j<500;j++)
+                for(int j=500;j<550;j++)
                     map[i][j]=1;
             else
-                for(int j=0;j<500;j++)
+                for(int j=500;j<550;j++)
                     map[i][j]=-1;
         }
     });
@@ -207,28 +208,28 @@ void MyScene::endGame()
     QTimer::singleShot(1200,[this,col](){
         ;
         QTimer::singleShot(500, [this,col]() {
-            update(0*col,0,col,500);
+            update(0*col,500,col,50);
             QTimer::singleShot(0, [this,col]() {
-                update(800-col,0,col,500);
+                update(800-col,500,col,50);
                 QTimer::singleShot(500, [this,col]() {
-                    update(col,0,col,500);
+                    update(col,500,col,50);
                     QTimer::singleShot(0, [this,col]() {
-                        update(800-2*col,0,col,500);
+                        update(800-2*col,500,col,50);
                         QTimer::singleShot(500, [this,col]() {
-                            update(2*col,0,col,500);
+                            update(2*col,500,col,50);
                             QTimer::singleShot(0, [this,col]() {
-                                update(800-3*col,0,col,500);
+                                update(800-3*col,500,col,50);
                                 QTimer::singleShot(500, [this,col]() {
-                                    update(3*col,0,col,500);
+                                    update(3*col,500,col,50);
                                     QTimer::singleShot(0, [this,col]() {
-                                        update(800-4*col,0,col,500);
+                                        update(800-4*col,500,col,50);
                                         QTimer::singleShot(500, [this,col]() {
-                                            update(4*col,0,col,500);
+                                            update(4*col,500,col,50);
                                             QTimer::singleShot(0, [this,col]() {
-                                                update(800-5*col,0,col,500);
+                                                update(800-5*col,500,col,50);
                                                 QTimer::singleShot(1000, [this]() {
                                                     addWinner();
-                                                    update(0,0,800,500);
+                                                    update(0,500,800,50);
                                                 });
                                             });
                                         });
@@ -245,7 +246,7 @@ void MyScene::endGame()
 
 void MyScene::addWinner()
 {
-    winner->setPos(335,205);
+    winner->setPos(335,475);
     addItem(winner);
 }
 

@@ -1,5 +1,6 @@
 debug/board.o
 debug/bullet.o
+debug/config.o
 debug/introduce.o
 debug/main.o
 debug/myscene.o

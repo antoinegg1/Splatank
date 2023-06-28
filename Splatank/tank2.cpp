@@ -5,6 +5,7 @@
 #include<QTimer>
 #include<QKeyEvent>
 #include<QGraphicsScene>
+#include<config.h>
 
 Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap)
 {
@@ -49,28 +50,28 @@ bool Tank2::collision()
 void Tank2::turnLeft()
 {
     setTransformOriginPoint(boundingRect().center());
-    setRotation(rotation() - 10);
+    setRotation(rotation() - TANK_SPEED);
     if(collision())
         turnRight();
 }
 void Tank2::turnRight()
 {
     setTransformOriginPoint(boundingRect().center());
-    setRotation(rotation() + 10);
+    setRotation(rotation() + TANK_SPEED);
     if(collision())
         turnLeft();
 }
 void Tank2::goForward()
 {
     qreal angle = rotation() * M_PI / 180;
-    setPos(x() - 10*qCos(angle), y() - 10*qSin(angle));
+    setPos(x() - TANK_SPEED*qCos(angle), y() - TANK_SPEED*qSin(angle));
     if(collision())
         goBack();
 }
 void Tank2::goBack()
 {
     qreal angle = rotation() * M_PI / 180;
-    setPos(x() + 10*qCos(angle), y() + 10*qSin(angle));
+    setPos(x() + TANK_SPEED*qCos(angle), y() + TANK_SPEED*qSin(angle));
     if(collision())
         goForward();
 }

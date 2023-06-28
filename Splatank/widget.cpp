@@ -31,7 +31,7 @@ void Widget::reshow(){
 void Widget::on_pushButton_clicked()//start
 {
     MainScene=new MyScene();
-    MainScene->setSceneRect(0,0,800,500);
+    MainScene->setSceneRect(0,0,800,550);
     MainView=new MyView(this,MainScene);
     MainView->setScene(MainScene);
     MainScene->init_map();

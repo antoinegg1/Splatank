@@ -1,5 +1,6 @@
 release/board.o
 release/bullet.o
+release/config.o
 release/introduce.o
 release/main.o
 release/myscene.o
