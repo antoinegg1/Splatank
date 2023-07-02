@@ -1,21 +1,27 @@
-#ifndef TANK_H
-#define TANK_H
+#ifndef TANK2_H
+#define TANK2_H
+#include<QTimer>
 #include<bullet.h>
 #include<QGraphicsPixmapItem>
 #include<QKeyEvent>
-#include<QTimer>
 #include<myscene.h>
+#include<QObject>
 
-class Tank : public QGraphicsPixmapItem
-{
+class Tank2 : public QObject,public QGraphicsPixmapItem{
+    Q_OBJECT
 public:
-    Tank(const QPixmap &pixmap, MyScene *scene);
+    Tank2(const QPixmap &pixmap, MyScene *scene);
 
     Bullet *b1;
     bool haveBullet;
+
     void MykeyPressEvent(int key) ;
-    void MykeyReleaseEvent(int key);
+    void MykeyReleaseEvent(int key) ;
     void destroy();
+    enum { Type = UserType + 1 };
+    int type() const override {
+        return Type;
+    }
 
 protected:
     void shoot();
@@ -34,4 +40,4 @@ private:
 };
 
 
-#endif // TANK_H
+#endif // TANK2_H
