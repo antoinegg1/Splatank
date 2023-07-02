@@ -52,13 +52,13 @@ void Bullet:: moveBy() {
                     ((Tank*)parentTank)->bulletNum++;
                 if(color==-1)
                     ((Tank2*)parentTank)->bulletNum++;
-               for (QGraphicsItem *item : collidingItems)
+               /*for (QGraphicsItem *item : collidingItems)
                 {
                     if (item->type() == Tank::Type)
                         ((Tank*)item)->destroy();
                     if (item->type() == Tank2::Type)
                         ((Tank2*)item)->destroy();
-                }
+                }*/
                 shooted=false;
             }
         }

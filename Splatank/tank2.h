@@ -25,6 +25,8 @@ public:
         return Type;
     }
     bool destroyed;
+    void beHarmed(int harm);
+    int tank_hp;
 
 protected:
 

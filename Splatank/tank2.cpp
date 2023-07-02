@@ -7,7 +7,7 @@
 #include<QGraphicsScene>
 #include<config.h>
 
-Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap)
+Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),tank_hp(100)
 {
     setFlag(QGraphicsItem::ItemIsFocusable);
     b[0]=new Bullet(scene,this,-1);
@@ -23,11 +23,13 @@ Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap)
 
 void Tank2::destroy()
 {
+    tank_hp=0;
     destroyed=true;
     parent->removeItem(this);
     QTimer::singleShot(3000, [this]() {
         setPos(700,227);
         setRotation(0);
+        tank_hp=100;
         destroyed=false;
         parent->addItem(this);
         QList<QGraphicsItem *> collidingItems = this->collidingItems();
@@ -88,4 +90,11 @@ void Tank2::shoot()
             shootCD=true;
         });
     }
+}
+
+void Tank2::beHarmed(int harm)
+{
+    tank_hp-=harm;
+    if(tank_hp<=0)
+        destroy();
 }

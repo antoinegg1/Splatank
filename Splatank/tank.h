@@ -24,6 +24,9 @@ public:
     int type() const override {
         return Type;
     }
+    void beHarmed(int harm);
+    int tank_hp;
+
 
 protected:
 
