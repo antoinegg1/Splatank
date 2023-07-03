@@ -4,6 +4,8 @@
 #include"QTimer"
 #include<QFont>
 #include<QPainter>
+#include<tank.h>
+#include<tank2.h>
 
 timeBoard::timeBoard(int CountdownSeconds,MyScene* scene): QGraphicsTextItem(), countdownSeconds(CountdownSeconds),parent(scene)
 {
@@ -33,6 +35,8 @@ void timeBoard::updateCountdown()
 {
     // 更新倒计时
     countdownSeconds--;
+    ((Tank*)(parent->player1))->handletimeout();
+    ((Tank2*)(parent->player2))->handletimeout();
     setPlainText(QString::number(countdownSeconds));
     // 倒计时结束
     if (countdownSeconds == -1)

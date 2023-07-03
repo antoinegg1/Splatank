@@ -19,6 +19,9 @@ Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),t
     parent=scene;
     setPos(700,227);
     destroyed=false;
+    outofwar = false;
+    recover_remaintime=5;
+    tank_hp = TANK_HP;
 }
 
 void Tank2::destroy()
@@ -84,6 +87,7 @@ void Tank2::shoot()
     {
         shootCD=false;
         bulletNum--;
+        resettimer();
         b[bulletTurn]->shoot(x()+18+qCos(rotation() * M_PI / 180+M_PI)*28,y()+10+qSin(rotation() * M_PI / 180+M_PI)*28,rotation() * M_PI / 180+M_PI);
         bulletTurn=(bulletTurn+1)%3;
         QTimer::singleShot(300, [this]() {
@@ -95,6 +99,34 @@ void Tank2::shoot()
 void Tank2::beHarmed(int harm)
 {
     tank_hp-=harm;
+    if(harm>0)
+        resettimer();
     if(tank_hp<=0)
         destroy();
 }
+void Tank2::handletimeout()
+{
+    recover_remaintime --;
+    if(recover_remaintime==0)
+    {
+        outofwar = true;
+        recover();
+    }
+    else if(outofwar)
+    {
+        recover();
+    }
+}
+void Tank2::resettimer()
+{
+    recover_remaintime = 5;
+    outofwar=false;
+}
+void Tank2::recover()
+{
+    if(tank_hp<TANK_HP)
+    {
+        tank_hp += fmin(RECOVER_HP,TANK_HP-tank_hp);
+    }
+}
+

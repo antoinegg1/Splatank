@@ -59,16 +59,16 @@ void MyScene::bombAt(int color,qreal X,qreal Y)
         }
     if(color==1)
     {
-        qreal disTank=pow((X-player2->x()-23)*(X-player2->x()-23)+(Y-player2->y()-14)*(Y-player2->y()-14),0.5);
-        int harm=fmax(-2.08*disTank+156.16,0);
+        qreal disTank=(X-player2->x()-23)*(X-player2->x()-23)+(Y-player2->y()-14)*(Y-player2->y()-14);
+        int harm=fmax(161.81*(2000/(disTank+1500)-0.28),0);
         ((Tank2*)player2)->beHarmed(harm);
         qDebug()<<disTank;
         qDebug()<<"tank2:"<<((Tank2*)player2)->tank_hp;
     }
     if(color==-1)
     {
-        qreal disTank=pow((X-player1->x()-23)*(X-player1->x()-23)+(Y-player1->y()-14)*(Y-player1->y()-14),0.5);
-        int harm=fmax(-2.08*disTank+156.16,0);
+        qreal disTank=(X-player1->x()-23)*(X-player1->x()-23)+(Y-player1->y()-14)*(Y-player1->y()-14);
+        int harm=fmax(161.81*(2000/(disTank+1500)-0.28),0);
         ((Tank*)player1)->beHarmed(harm);
         qDebug()<<disTank;
         qDebug()<<"tank1:"<<((Tank*)player1)->tank_hp;
@@ -88,6 +88,7 @@ void MyScene::init_map()
             }
         }
     }
+
     for(int x=200;x<230;x++)
     {
         for(int y=225;y<275;y++)

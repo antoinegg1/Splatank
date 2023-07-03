@@ -20,13 +20,18 @@ public:
     void goForward();
     void goBack();
     void shoot();
+    void recover();
+    void handletimeout();
+    void resettimer();
     enum { Type = UserType + 1 };
     int type() const override {
         return Type;
     }
     bool destroyed;
+    bool outofwar;
     void beHarmed(int harm);
     int tank_hp;
+    int recover_remaintime;
 
 protected:
 
