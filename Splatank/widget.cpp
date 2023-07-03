@@ -6,6 +6,8 @@
 #include<tank.h>
 #include<tank2.h>
 #include<bullet.h>
+#include <QtPrintSupport/QPrintDialog>
+#include <QtPrintSupport/QPrinter>
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
@@ -36,6 +38,8 @@ void Widget::on_pushButton_clicked()//start
     MainView->setScene(MainScene);
     MainScene->init_map();
     MainView->show();
+    MainScene->painthp(1,0,100);
+    MainScene->painthp(2,0,100);
     ((timeBoard*)MainScene->TimeBoard)->timer->start(1000);
     QObject::connect(MainScene,SIGNAL(escSignal()),this,SLOT(reshow()));
     hide();

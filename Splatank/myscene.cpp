@@ -1,9 +1,10 @@
 #include<QDebug>
+#include <QtGlobal>
 #include "myscene.h"
 #include<tank.h>
 #include<timeboard.h>
 #include<tank2.h>
-#include"QPainter"
+#include<QPainter>
 #include<QTime>
 #include<QGraphicsRectItem>
 #include<QApplication>
@@ -13,15 +14,25 @@
 #include<QThread>
 #include<QGraphicsTextItem>
 #include<config.h>
+#include <QtPrintSupport/QPrintDialog>
+#include <QtPrintSupport/QPrinter>
 
 MyScene::MyScene():shouldDraw(false),circleX(0),circleY(0),count1(0),count2(0)
 {
-    player1 = new Tank(QPixmap("..\\Splatank\\res\\1.png"),(MyScene*)this);
-    player2 = new Tank2(QPixmap("..\\Splatank\\res\\2.png"),(MyScene*)this);
+    player1 = new Tank(QPixmap("..\\Splatank\\res\\1.png"),this);
+    player2 = new Tank2(QPixmap("..\\Splatank\\res\\2.png"),this);
+    redtank = QPixmap("..\\Splatank\\res\\1.png");
+    greentank = QPixmap("..\\Splatank\\res\\2.png");
+    QGraphicsPixmapItem * rtank = new QGraphicsPixmapItem(redtank);
+    QGraphicsPixmapItem * gtank = new QGraphicsPixmapItem(greentank);
     TimeBoard=new timeBoard(TIME,(MyScene*)this);
     addItem(TimeBoard);
     addItem(player1);
     addItem(player2);
+    rtank->setPos(10,510);
+    gtank->setPos(744,510);
+    addItem(rtank);
+    addItem(gtank);
     aKeyPressed=false;
     dKeyPressed=false;
     wKeyPressed=false;
@@ -75,7 +86,6 @@ void MyScene::bombAt(int color,qreal X,qreal Y)
     }
     update(QRectF(X-75,Y-75,150,150));
 }
-
 void MyScene::init_map()
 {
     memset(map,0,sizeof(map));
@@ -88,7 +98,6 @@ void MyScene::init_map()
             }
         }
     }
-
     int randomseed = QRandomGenerator::global()->bounded(2);
     switch(randomseed)
     {
@@ -151,7 +160,6 @@ void MyScene::init_map()
         break;
     }
     }
-
     for(int x= 0;x<800;x++)
     {
         for(int y=0;y<500;y++)
@@ -210,7 +218,56 @@ bool MyScene::can_be_reached_by_color(int sx,int sy,int ex,int ey)
     // 没有找到障碍物，返回true
     return true;
 }
+void MyScene::painthp(int player,int s,int e)
+{
+    int redsx = 100;
+    int redex = 300;
+    int greensx = 700;
+    int greenex = 500;
+    int sy = 530;
+    int ey = 540;
+    if(player==1)
+    {
+        if(e>s)
+        {
+            for(int i=redsx+2*s;i<=redsx+2*e;i++)
+            {
+                for(int y = sy;y<ey;y++)
+                    map[i][y]=1;
+            }
+        }
+        else
+        {
+            for(int i = redsx+2*s;i>=redsx+2*e;i--)
+            {
+                for(int y = sy;y<ey;y++)
+                    map[i][y]=2;
+            }
+        }
+        update(redsx,sy,redex-redsx,ey-sy);
+    }
+    else
+    {
+        if(e>s)
+        {
+            for(int x = greensx-2*s;x>=greensx-2*e;x--)
+            {
+                for(int y=sy;y<ey;y++)
+                    map[x][y] = -1;
+            }
+        }
+        else
+        {
+            for(int x=greensx-2*s;x<=greensx-2*e;x++)
+            {
+                for(int y=sy;y<ey;y++)
+                    map[x][y] = 2;
+            }
 
+        }
+        update(greenex,sy,greensx-greenex,ey-sy);
+    }
+}
 void MyScene::drawBackground(QPainter* ptr, const QRectF &rect)
 {
     // 绘制背景
@@ -373,20 +430,6 @@ void MyScene::keyReleaseEvent(QKeyEvent *event)
 
 void MyScene::myUpdate()
 {
-    if(map[(int)player1->x()+23][(int)player1->y()+14]==-1)
-        ((Tank*)player1)->speed=TANK_SPEED-1;
-    else if(map[(int)player1->x()+23][(int)player1->y()+14]==1)
-        ((Tank*)player1)->speed=TANK_SPEED+1;
-    else
-        ((Tank*)player1)->speed=TANK_SPEED;
-
-    if(map[(int)player2->x()+23][(int)player2->y()+14]==1)
-        ((Tank2*)player2)->speed=TANK_SPEED-1;
-    else if(map[(int)player2->x()+23][(int)player2->y()+14]==-1)
-        ((Tank2*)player2)->speed=TANK_SPEED+1;
-    else
-        ((Tank2*)player2)->speed=TANK_SPEED;
-
     if(aKeyPressed)
         ((Tank*)player1)->turnLeft();
     if(dKeyPressed)

@@ -8,7 +8,7 @@
 #include<QGraphicsScene>
 #include<config.h>
 
-Tank::Tank(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),tank_hp(100),speed(TANK_SPEED)
+Tank::Tank(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),tank_hp(100)
 {
     b[0]=new Bullet(scene,this,1);
     b[1]=new Bullet(scene,this,1);
@@ -26,6 +26,7 @@ Tank::Tank(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),tan
 
 void Tank::destroy()
 {
+    parent->painthp(1,100,0);
     tank_hp=0;
     destroyed=true;
     parent->removeItem(this);
@@ -34,6 +35,7 @@ void Tank::destroy()
         setRotation(0);
         destroyed=false;
         tank_hp=100;
+        parent->painthp(1,0,100);
         parent->addItem(this);
         QList<QGraphicsItem *> collidingItems = this->collidingItems();
         for (QGraphicsItem *item : collidingItems)
@@ -55,28 +57,28 @@ bool Tank::collision()
 void Tank::turnLeft()
 {
     setTransformOriginPoint(boundingRect().center());
-    setRotation(rotation() - speed);
+    setRotation(rotation() - TANK_SPEED);
     if(collision())
         turnRight();
 }
 void Tank::turnRight()
 {
     setTransformOriginPoint(boundingRect().center());
-    setRotation(rotation() + speed);
+    setRotation(rotation() + TANK_SPEED);
     if(collision())
         turnLeft();
 }
 void Tank::goForward()
 {
     qreal angle = rotation() * M_PI / 180;
-    setPos(x() + speed*qCos(angle), y() + speed*qSin(angle));
+    setPos(x() + TANK_SPEED*qCos(angle), y() + TANK_SPEED*qSin(angle));
     if(collision())
         goBack();
 }
 void Tank::goBack()
 {
     qreal angle = rotation() * M_PI / 180;
-    setPos(x() - speed*qCos(angle), y() - speed*qSin(angle));
+    setPos(x() - TANK_SPEED*qCos(angle), y() - TANK_SPEED*qSin(angle));
     if(collision())
         goForward();
 }
@@ -98,6 +100,7 @@ void Tank::shoot()
 
 void Tank::beHarmed(int harm)
 {
+    parent->painthp(1,tank_hp,fmax(0,tank_hp-harm));
     tank_hp-=harm;
     if(harm>0)
         resettimer();
@@ -126,6 +129,7 @@ void Tank::recover()
 {
     if(tank_hp<TANK_HP)
     {
+        parent->painthp(1,tank_hp,tank_hp+fmin(RECOVER_HP,TANK_HP-tank_hp));
         tank_hp += fmin(RECOVER_HP,TANK_HP-tank_hp);
     }
 }

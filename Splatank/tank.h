@@ -30,14 +30,13 @@ public:
     }
     void beHarmed(int harm);
     int tank_hp;
-    int speed;
     int recover_remaintime;
 
 protected:
 
 private:
     bool collision();
-    QGraphicsScene *parent;
+    MyScene *parent;
     bool shootCD;
     int bulletTurn;
 };

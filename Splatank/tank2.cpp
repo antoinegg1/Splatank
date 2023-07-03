@@ -7,7 +7,7 @@
 #include<QGraphicsScene>
 #include<config.h>
 
-Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),tank_hp(100),speed(TANK_SPEED)
+Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),tank_hp(100)
 {
     setFlag(QGraphicsItem::ItemIsFocusable);
     b[0]=new Bullet(scene,this,-1);
@@ -26,12 +26,14 @@ Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),t
 
 void Tank2::destroy()
 {
+    parent->painthp(2,100,0);
     tank_hp=0;
     destroyed=true;
     parent->removeItem(this);
     QTimer::singleShot(3000, [this]() {
         setPos(700,227);
         setRotation(0);
+        parent->painthp(2,0,100);
         tank_hp=100;
         destroyed=false;
         parent->addItem(this);
@@ -55,28 +57,28 @@ bool Tank2::collision()
 void Tank2::turnLeft()
 {
     setTransformOriginPoint(boundingRect().center());
-    setRotation(rotation() - speed);
+    setRotation(rotation() - TANK_SPEED);
     if(collision())
         turnRight();
 }
 void Tank2::turnRight()
 {
     setTransformOriginPoint(boundingRect().center());
-    setRotation(rotation() + speed);
+    setRotation(rotation() + TANK_SPEED);
     if(collision())
         turnLeft();
 }
 void Tank2::goForward()
 {
     qreal angle = rotation() * M_PI / 180;
-    setPos(x() - speed*qCos(angle), y() - speed*qSin(angle));
+    setPos(x() - TANK_SPEED*qCos(angle), y() - TANK_SPEED*qSin(angle));
     if(collision())
         goBack();
 }
 void Tank2::goBack()
 {
     qreal angle = rotation() * M_PI / 180;
-    setPos(x() + speed*qCos(angle), y() + speed*qSin(angle));
+    setPos(x() + TANK_SPEED*qCos(angle), y() + TANK_SPEED*qSin(angle));
     if(collision())
         goForward();
 }
@@ -98,6 +100,7 @@ void Tank2::shoot()
 
 void Tank2::beHarmed(int harm)
 {
+    parent->painthp(2,tank_hp,fmax(0,tank_hp-harm));
     tank_hp-=harm;
     if(harm>0)
         resettimer();
@@ -126,6 +129,7 @@ void Tank2::recover()
 {
     if(tank_hp<TANK_HP)
     {
+        parent->painthp(2,tank_hp,tank_hp+fmin(RECOVER_HP,TANK_HP-tank_hp));
         tank_hp += fmin(RECOVER_HP,TANK_HP-tank_hp);
     }
 }

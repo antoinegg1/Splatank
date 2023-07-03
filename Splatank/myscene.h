@@ -4,6 +4,9 @@
 #include<QGraphicsPixmapItem>
 #include <QObject>
 #include <QWidget>
+#include <QtGlobal>
+#include <QtPrintSupport/QPrintDialog>
+#include <QtPrintSupport/QPrinter>
 
 class MyScene: public QGraphicsScene
 {
@@ -40,6 +43,10 @@ public:
     QGraphicsPixmapItem* player1;
     QGraphicsPixmapItem* player2;
     QGraphicsTextItem* TimeBoard;
+    QPixmap redtank;
+    QPixmap greentank;
+
+    void painthp(int player,int s,int e);
     void myUpdate();
 signals:
     void escSignal();
