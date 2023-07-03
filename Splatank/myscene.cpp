@@ -89,15 +89,67 @@ void MyScene::init_map()
         }
     }
 
-    for(int x=200;x<230;x++)
+    int randomseed = QRandomGenerator::global()->bounded(2);
+    switch(randomseed)
     {
-        for(int y=225;y<275;y++)
-            map[x][y]=10;
+    case 0:
+    {
+        for(int x=130;x<140;x++)
+        {
+            for(int y=150;y<350;y++)
+                map[x][y]=10;
+        }
+        for(int x=660;x<670;x++)
+        {
+            for(int y=150;y<350;y++)
+                map[x][y]=10;
+        }
+        for(int x=300;x<500;x++)
+        {
+            for(int y=90;y<100;y++)
+                map[x][y]=10;
+        }
+        for(int x=300;x<500;x++)
+        {
+            for(int y=400;y<410;y++)
+                map[x][y]=10;
+        }
+        for(int x=300;x<310;x++)
+        {
+            for(int y=100;y<300;y++)
+                map[x][y]=10;
+        }
+        for(int x=490;x<500;x++)
+        {
+            for(int y=200;y<400;y++)
+                map[x][y]=10;
+        }
+        break;
     }
-    for(int x=570;x<600;x++)
+    case 1:
     {
-        for(int y=225;y<275;y++)
-            map[x][y]=10;
+        int rmin = 97;
+        int rmax = 105;
+        for(int x = 200;x<400;x++)
+        {
+            for(int y = 100;y<400;y++)
+            {
+                int dis = (x-200)*(x-200)+(y-250)*(y-250);
+                if(dis>rmin*rmin&&dis<rmax*rmax)
+                    map[x][y]=10;
+            }
+        }
+        for(int x = 400;x<600;x++)
+        {
+            for(int y = 100;y<400;y++)
+            {
+                int dis = (x-600)*(x-600)+(y-250)*(y-250);
+                if(dis>rmin*rmin&&dis<rmax*rmax)
+                    map[x][y]=10;
+            }
+        }
+        break;
+    }
     }
 
     for(int x= 0;x<800;x++)
@@ -321,6 +373,20 @@ void MyScene::keyReleaseEvent(QKeyEvent *event)
 
 void MyScene::myUpdate()
 {
+    if(map[(int)player1->x()+23][(int)player1->y()+14]==-1)
+        ((Tank*)player1)->speed=TANK_SPEED-1;
+    else if(map[(int)player1->x()+23][(int)player1->y()+14]==1)
+        ((Tank*)player1)->speed=TANK_SPEED+1;
+    else
+        ((Tank*)player1)->speed=TANK_SPEED;
+
+    if(map[(int)player2->x()+23][(int)player2->y()+14]==1)
+        ((Tank2*)player2)->speed=TANK_SPEED-1;
+    else if(map[(int)player2->x()+23][(int)player2->y()+14]==-1)
+        ((Tank2*)player2)->speed=TANK_SPEED+1;
+    else
+        ((Tank2*)player2)->speed=TANK_SPEED;
+
     if(aKeyPressed)
         ((Tank*)player1)->turnLeft();
     if(dKeyPressed)

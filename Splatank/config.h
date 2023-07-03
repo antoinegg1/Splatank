@@ -1,7 +1,7 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 #define PAINT_ACCURACY 1
-#define TANK_SPEED 3
+#define TANK_SPEED 2
 #define BULLET_SPEED 6
 #define TIME 600
 #define TANK_HP 100

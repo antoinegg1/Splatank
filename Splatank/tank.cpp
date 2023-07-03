@@ -8,7 +8,7 @@
 #include<QGraphicsScene>
 #include<config.h>
 
-Tank::Tank(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),tank_hp(100)
+Tank::Tank(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),tank_hp(100),speed(TANK_SPEED)
 {
     b[0]=new Bullet(scene,this,1);
     b[1]=new Bullet(scene,this,1);
@@ -55,28 +55,28 @@ bool Tank::collision()
 void Tank::turnLeft()
 {
     setTransformOriginPoint(boundingRect().center());
-    setRotation(rotation() - TANK_SPEED);
+    setRotation(rotation() - speed);
     if(collision())
         turnRight();
 }
 void Tank::turnRight()
 {
     setTransformOriginPoint(boundingRect().center());
-    setRotation(rotation() + TANK_SPEED);
+    setRotation(rotation() + speed);
     if(collision())
         turnLeft();
 }
 void Tank::goForward()
 {
     qreal angle = rotation() * M_PI / 180;
-    setPos(x() + TANK_SPEED*qCos(angle), y() + TANK_SPEED*qSin(angle));
+    setPos(x() + speed*qCos(angle), y() + speed*qSin(angle));
     if(collision())
         goBack();
 }
 void Tank::goBack()
 {
     qreal angle = rotation() * M_PI / 180;
-    setPos(x() - TANK_SPEED*qCos(angle), y() - TANK_SPEED*qSin(angle));
+    setPos(x() - speed*qCos(angle), y() - speed*qSin(angle));
     if(collision())
         goForward();
 }
