@@ -19,6 +19,7 @@ Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),t
     parent=scene;
     setPos(700,227);
     destroyed=false;
+    unkillable=false;
     outofwar = false;
     recover_remaintime=5;
     tank_hp = TANK_HP;
@@ -29,6 +30,7 @@ void Tank2::destroy()
     parent->painthp(2,100,0);
     tank_hp=0;
     destroyed=true;
+    unkillable=true;
     parent->removeItem(this);
     QTimer::singleShot(3000, [this]() {
         setPos(700,227);
@@ -44,6 +46,9 @@ void Tank2::destroy()
             if (item->type() == Tank::Type)
                 ((Tank*)item)->destroy();
         }
+        QTimer::singleShot(3000, [this]() {
+            unkillable=false;
+        });
     });
 }
 
@@ -101,12 +106,15 @@ void Tank2::shoot()
 
 void Tank2::beHarmed(int harm)
 {
-    parent->painthp(2,tank_hp,fmax(0,tank_hp-harm));
-    tank_hp-=harm;
-    if(harm>0)
-        resettimer();
-    if(tank_hp<=0)
-        destroy();
+    if(!unkillable)
+    {
+        parent->painthp(2,tank_hp,fmax(0,tank_hp-harm));
+        tank_hp-=harm;
+        if(harm>0)
+            resettimer();
+        if(tank_hp<=0)
+            destroy();
+    }
 }
 void Tank2::handletimeout()
 {

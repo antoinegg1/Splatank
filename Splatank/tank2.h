@@ -28,6 +28,7 @@ public:
         return Type;
     }
     bool destroyed;
+    bool unkillable;
     bool outofwar;
     void beHarmed(int harm);
     int tank_hp;

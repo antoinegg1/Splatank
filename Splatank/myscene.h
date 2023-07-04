@@ -31,7 +31,7 @@ public:
     MyScene();
     void addWinner();
     void drawBackground(QPainter* ptr, const QRectF &rect) override;
-    void bombAt(int color,qreal X,qreal Y);
+    void bombAt(int color,qreal X,qreal Y,qreal range);
     void init_map();
     bool shouldDraw;
     bool can_be_reached_by_color(int sx,int sy,int ex,int ey);

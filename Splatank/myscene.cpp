@@ -52,7 +52,7 @@ MyScene::MyScene():shouldDraw(false),circleX(0),circleY(0),count1(0),count2(0)
 }
 
 
-void MyScene::bombAt(int color,qreal X,qreal Y)
+void MyScene::bombAt(int color,qreal X,qreal Y,qreal range)
 {
     changeX=fmax(0,X-75);
     changeY=fmax(0,Y-75);
@@ -60,9 +60,9 @@ void MyScene::bombAt(int color,qreal X,qreal Y)
         for(int j=changeY;j<fmin(500,changeY+150);j++)
         {
             qreal dis=(i-X)*(i-X)+(j-Y)*(j-Y);
-            if(dis<=5625&&can_be_reached_by_color(X,Y,i,j))
+            if(dis<=range&&can_be_reached_by_color(X,Y,i,j))
             {
-                double f=2000/(dis+1500);
+                double f=0.356*range/(dis+0.267*range);
                 double tmp = QRandomGenerator::global()->bounded(1.0);
                 if(tmp<=f)
                 {
@@ -79,15 +79,15 @@ void MyScene::bombAt(int color,qreal X,qreal Y)
         }
     qDebug()<<"tank1energy:"<<((Tank*)player1)->energy;
     qDebug()<<"tank2energy:"<<((Tank2*)player2)->energy;
-    if(color==1&&can_be_reached_by_color(X,Y,player2->x()-23,player2->y()-14))
+    if(color==1&&!((Tank2*)player2)->destroyed&&can_be_reached_by_color(X,Y,player2->x()+23,player2->y()+14))
     {
         qreal disTank=(X-player2->x()-23)*(X-player2->x()-23)+(Y-player2->y()-14)*(Y-player2->y()-14);
-        int harm=fmax(161.81*(2000/(disTank+1500)-0.28),0);
+        int harm=fmax(161.81*(0.356*range/(disTank+0.267*range)-0.28),0);
         ((Tank2*)player2)->beHarmed(harm);
         qDebug()<<disTank;
         qDebug()<<"tank2hp:"<<((Tank2*)player2)->tank_hp;
     }
-    if(color==-1&&can_be_reached_by_color(X,Y,player1->x()-23,player1->y()-14))
+    if(color==-1&&!((Tank*)player1)->destroyed&&can_be_reached_by_color(X,Y,player1->x()+23,player1->y()+14))
     {
         qreal disTank=(X-player1->x()-23)*(X-player1->x()-23)+(Y-player1->y()-14)*(Y-player1->y()-14);
         int harm=fmax(161.81*(2000/(disTank+1500)-0.28),0);
@@ -441,39 +441,47 @@ void MyScene::keyReleaseEvent(QKeyEvent *event)
 
 void MyScene::myUpdate()
 {
-    if(map[(int)player1->x()+23][(int)player1->y()+14]==-1)
-        ((Tank*)player1)->speed=TANK_SPEED-1;
-    else if(map[(int)player1->x()+23][(int)player1->y()+14]==1)
-        ((Tank*)player1)->speed=TANK_SPEED+1;
-    else
-        ((Tank*)player1)->speed=TANK_SPEED;
-    if(map[(int)player2->x()+23][(int)player2->y()+14]==1)
-        ((Tank2*)player2)->speed=TANK_SPEED-1;
-    else if(map[(int)player2->x()+23][(int)player2->y()+14]==-1)
-        ((Tank2*)player2)->speed=TANK_SPEED+1;
-    else
-        ((Tank2*)player2)->speed=TANK_SPEED;
-    if(aKeyPressed)
-        ((Tank*)player1)->turnLeft();
-    if(dKeyPressed)
-        ((Tank*)player1)->turnRight();
-    if(wKeyPressed)
-        ((Tank*)player1)->goForward();
-    if(sKeyPressed)
-        ((Tank*)player1)->goBack();
-    if(qKeyPressed)
-        ((Tank*)player1)->shoot();
+    if(!((Tank*)player1)->destroyed)
+    {
+        if(map[(int)player1->x()+23][(int)player1->y()+14]==-1)
+            ((Tank*)player1)->speed=TANK_SPEED-1;
+        else if(map[(int)player1->x()+23][(int)player1->y()+14]==1)
+            ((Tank*)player1)->speed=TANK_SPEED+1;
+        else
+            ((Tank*)player1)->speed=TANK_SPEED;
 
-    if(leftKeyPressed)
-        ((Tank2*)player2)->turnLeft();
-    if(rightKeyPressed)
-        ((Tank2*)player2)->turnRight();
-    if(upKeyPressed)
-        ((Tank2*)player2)->goForward();
-    if(downKeyPressed)
-        ((Tank2*)player2)->goBack();
-    if(mKeyPressed)
-        ((Tank2*)player2)->shoot();
+        if(aKeyPressed)
+            ((Tank*)player1)->turnLeft();
+        if(dKeyPressed)
+            ((Tank*)player1)->turnRight();
+        if(wKeyPressed)
+            ((Tank*)player1)->goForward();
+        if(sKeyPressed)
+            ((Tank*)player1)->goBack();
+        if(qKeyPressed)
+            ((Tank*)player1)->shoot();
+    }
+
+    if(!((Tank2*)player2)->destroyed)
+    {
+        if(map[(int)player2->x()+23][(int)player2->y()+14]==1)
+            ((Tank2*)player2)->speed=TANK_SPEED-1;
+        else if(map[(int)player2->x()+23][(int)player2->y()+14]==-1)
+            ((Tank2*)player2)->speed=TANK_SPEED+1;
+        else
+            ((Tank2*)player2)->speed=TANK_SPEED;
+
+        if(leftKeyPressed)
+            ((Tank2*)player2)->turnLeft();
+        if(rightKeyPressed)
+            ((Tank2*)player2)->turnRight();
+        if(upKeyPressed)
+            ((Tank2*)player2)->goForward();
+        if(downKeyPressed)
+            ((Tank2*)player2)->goBack();
+        if(mKeyPressed)
+            ((Tank2*)player2)->shoot();
+    }
 
     if(((Tank*)player1)->b[0]->shooted==true)
     {

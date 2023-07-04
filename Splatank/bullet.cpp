@@ -46,7 +46,7 @@ void Bullet:: moveBy() {
             if(!bomb)
             {
                 bomb=true;
-                parent->bombAt(color,x()+5,y()+4);
+                parent->bombAt(color,x()+5,y()+4,5625);
                 parent->removeItem(this);
                 if(color==1)
                     ((Tank*)parentTank)->bulletNum++;

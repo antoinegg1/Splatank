@@ -23,6 +23,7 @@ public:
     void handletimeout();
     void resettimer();
     bool destroyed;
+    bool unkillable;
     bool outofwar;
     enum { Type = UserType + 2 };
     int type() const override {
