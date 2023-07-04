@@ -37,29 +37,30 @@ void Bullet::shoot(qreal X,qreal Y,qreal angle) {
     dy = qSin(angle) * speed;
 }
 
-void Bullet:: moveBy() {
-        setPos(x() + dx, y() + dy);
-        qreal dis=(x()-startX)*(x()-startX)+(y()-startY)*(y()-startY);
-        QList<QGraphicsItem *> collidingItems = this->collidingItems();
-        if (!collidingItems.isEmpty()||dis>=40000) {
-            // item与其他图形项发生了碰撞
-            if(!bomb)
-            {
-                bomb=true;
-                parent->bombAt(color,x()+5,y()+4,5625);
-                parent->removeItem(this);
-                if(color==1)
-                    ((Tank*)parentTank)->bulletNum++;
-                if(color==-1)
-                    ((Tank2*)parentTank)->bulletNum++;
-               /*for (QGraphicsItem *item : collidingItems)
+void Bullet:: moveBy()
+{
+    setPos(x() + dx, y() + dy);
+    qreal dis=(x()-startX)*(x()-startX)+(y()-startY)*(y()-startY);
+    QList<QGraphicsItem *> collidingItems = this->collidingItems();
+    if (!collidingItems.isEmpty()||dis>=40000) {
+        // item与其他图形项发生了碰撞
+        if(!bomb)
+        {
+            bomb=true;
+            parent->bombAt(color,x()+5,y()+4,5625);
+            parent->removeItem(this);
+            if(color==1)
+                ((Tank*)parentTank)->bulletNum++;
+            if(color==-1)
+                ((Tank2*)parentTank)->bulletNum++;
+            /*for (QGraphicsItem *item : collidingItems)
                 {
                     if (item->type() == Tank::Type)
                         ((Tank*)item)->destroy();
                     if (item->type() == Tank2::Type)
                         ((Tank2*)item)->destroy();
                 }*/
-                shooted=false;
-            }
+            shooted=false;
         }
     }
+}

@@ -45,7 +45,7 @@ MyScene::MyScene():shouldDraw(false),circleX(0),circleY(0),count1(0),count2(0)
     mKeyPressed=false;
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MyScene::myUpdate);
-    timer->start(10);
+    timer->start(20);
     changeX=0;
     changeY=0;
     QGraphicsTextItem* winner= nullptr;
@@ -508,9 +508,9 @@ void MyScene::myUpdate()
     if(!((Tank*)player1)->destroyed)
     {
         if(map[(int)player1->x()+23][(int)player1->y()+14]==-1)
-            ((Tank*)player1)->speed=TANK_SPEED-1;
+            ((Tank*)player1)->speed=TANK_SPEED*0.5;
         else if(map[(int)player1->x()+23][(int)player1->y()+14]==1)
-            ((Tank*)player1)->speed=TANK_SPEED+1;
+            ((Tank*)player1)->speed=TANK_SPEED*1.5;
         else
             ((Tank*)player1)->speed=TANK_SPEED;
 
@@ -529,9 +529,9 @@ void MyScene::myUpdate()
     if(!((Tank2*)player2)->destroyed)
     {
         if(map[(int)player2->x()+23][(int)player2->y()+14]==1)
-            ((Tank2*)player2)->speed=TANK_SPEED-1;
+            ((Tank2*)player2)->speed=TANK_SPEED*0.5;
         else if(map[(int)player2->x()+23][(int)player2->y()+14]==-1)
-            ((Tank2*)player2)->speed=TANK_SPEED+1;
+            ((Tank2*)player2)->speed=TANK_SPEED*1.5;
         else
             ((Tank2*)player2)->speed=TANK_SPEED;
 
