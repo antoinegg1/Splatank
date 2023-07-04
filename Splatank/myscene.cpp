@@ -65,16 +65,27 @@ void MyScene::bombAt(int color,qreal X,qreal Y)
                 double f=2000/(dis+1500);
                 double tmp = QRandomGenerator::global()->bounded(1.0);
                 if(tmp<=f)
-                {map[i][j]=color;}
+                {
+                    if(map[i][j]!=color)
+                    {
+                        if(color==1)
+                            ((Tank*)player1)->energy=fmin(100,((Tank*)player1)->energy+0.001);
+                        if(color==-1)
+                            ((Tank2*)player2)->energy=fmin(100,((Tank2*)player2)->energy+0.001);
+                    }
+                    map[i][j]=color;
+                }
             }
         }
+    qDebug()<<"tank1energy:"<<((Tank*)player1)->energy;
+    qDebug()<<"tank2energy:"<<((Tank2*)player2)->energy;
     if(color==1&&can_be_reached_by_color(X,Y,player2->x()-23,player2->y()-14))
     {
         qreal disTank=(X-player2->x()-23)*(X-player2->x()-23)+(Y-player2->y()-14)*(Y-player2->y()-14);
         int harm=fmax(161.81*(2000/(disTank+1500)-0.28),0);
         ((Tank2*)player2)->beHarmed(harm);
         qDebug()<<disTank;
-        qDebug()<<"tank2:"<<((Tank2*)player2)->tank_hp;
+        qDebug()<<"tank2hp:"<<((Tank2*)player2)->tank_hp;
     }
     if(color==-1&&can_be_reached_by_color(X,Y,player1->x()-23,player1->y()-14))
     {
@@ -82,7 +93,7 @@ void MyScene::bombAt(int color,qreal X,qreal Y)
         int harm=fmax(161.81*(2000/(disTank+1500)-0.28),0);
         ((Tank*)player1)->beHarmed(harm);
         qDebug()<<disTank;
-        qDebug()<<"tank1:"<<((Tank*)player1)->tank_hp;
+        qDebug()<<"tank1hp:"<<((Tank*)player1)->tank_hp;
     }
     update(QRectF(X-75,Y-75,150,150));
 }

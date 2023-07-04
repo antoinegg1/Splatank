@@ -32,6 +32,7 @@ public:
     void beHarmed(int harm);
     int tank_hp;
     int speed;
+    qreal energy;
     int recover_remaintime;
 
 protected:
