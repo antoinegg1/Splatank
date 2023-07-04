@@ -40,6 +40,8 @@ void Widget::on_pushButton_clicked()//start
     MainView->show();
     MainScene->painthp(1,0,100);
     MainScene->painthp(2,0,100);
+    MainScene->paintenergy(1,100,0);
+    MainScene->paintenergy(2,100,0);
     ((timeBoard*)MainScene->TimeBoard)->timer->start(1000);
     QObject::connect(MainScene,SIGNAL(escSignal()),this,SLOT(reshow()));
     hide();

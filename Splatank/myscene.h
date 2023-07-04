@@ -47,6 +47,7 @@ public:
     QPixmap greentank;
 
     void painthp(int player,int s,int e);
+    void paintenergy(int player,int s,int e);
     void myUpdate();
 signals:
     void escSignal();

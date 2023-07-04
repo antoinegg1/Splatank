@@ -23,6 +23,7 @@ Tank::Tank(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),tan
     recover_remaintime=5;
     outofwar = false;
     tank_hp = TANK_HP;
+    energy = 0;
 }
 
 void Tank::destroy()
@@ -38,6 +39,7 @@ void Tank::destroy()
         destroyed=false;
         tank_hp=100;
         energy=fmax(energy-50,0);
+        parent->paintenergy(1,100,energy);
         parent->painthp(1,0,100);
         parent->addItem(this);
         QList<QGraphicsItem *> collidingItems = this->collidingItems();

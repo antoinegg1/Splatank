@@ -56,6 +56,10 @@ void MyScene::bombAt(int color,qreal X,qreal Y,qreal range)
 {
     changeX=fmax(0,X-75);
     changeY=fmax(0,Y-75);
+    int p1energy = (int)((Tank*)player1)->energy;
+    int p2energy = (int)((Tank*)player2)->energy;
+    int count1 = 0;
+    int count2 = 0;
     for(int i=changeX;i<fmin(800,changeX+150);i++)
         for(int j=changeY;j<fmin(500,changeY+150);j++)
         {
@@ -69,14 +73,22 @@ void MyScene::bombAt(int color,qreal X,qreal Y,qreal range)
                     if(map[i][j]!=color)
                     {
                         if(color==1)
+                        {
                             ((Tank*)player1)->energy=fmin(100,((Tank*)player1)->energy+0.001);
+                            count1++;
+                        }
                         if(color==-1)
+                        {
                             ((Tank2*)player2)->energy=fmin(100,((Tank2*)player2)->energy+0.001);
+                            count2++;
+                        }
                     }
                     map[i][j]=color;
                 }
             }
         }
+    paintenergy(1,0,fmin(100,p1energy+0.001*count1));
+    paintenergy(2,0,fmin(100,p2energy+0.001*count2));
     qDebug()<<"tank1energy:"<<((Tank*)player1)->energy;
     qDebug()<<"tank2energy:"<<((Tank2*)player2)->energy;
     if(color==1&&!((Tank2*)player2)->destroyed&&can_be_reached_by_color(X,Y,player2->x()+23,player2->y()+14))
@@ -235,8 +247,8 @@ void MyScene::painthp(int player,int s,int e)
     int redex = 300;
     int greensx = 700;
     int greenex = 500;
-    int sy = 530;
-    int ey = 540;
+    int sy = 510;
+    int ey = 520;
     if(player==1)
     {
         if(e>s)
@@ -279,6 +291,56 @@ void MyScene::painthp(int player,int s,int e)
         update(greenex,sy,greensx-greenex,ey-sy);
     }
 }
+void MyScene::paintenergy(int player,int s,int e)
+{
+    int redsx = 100;
+    int redex = 300;
+    int greensx = 700;
+    int greenex = 500;
+    int sy = 530;
+    int ey = 540;
+    if(player==1)
+    {
+        if(e>s)
+        {
+            for(int i=redsx+2*s;i<=redsx+2*e;i++)
+            {
+                for(int y = sy;y<ey;y++)
+                    map[i][y]=3;
+            }
+        }
+        else
+        {
+            for(int i = redsx+2*s;i>=redsx+2*e;i--)
+            {
+                for(int y = sy;y<ey;y++)
+                    map[i][y]=2;
+            }
+        }
+        update(redsx,sy,redex-redsx,ey-sy);
+    }
+    else
+    {
+        if(e>s)
+        {
+            for(int x = greensx-2*s;x>=greensx-2*e;x--)
+            {
+                for(int y=sy;y<ey;y++)
+                    map[x][y] = 3;
+            }
+        }
+        else
+        {
+            for(int x=greensx-2*s;x<=greensx-2*e;x++)
+            {
+                for(int y=sy;y<ey;y++)
+                    map[x][y] = 2;
+            }
+
+        }
+        update(greenex,sy,greensx-greenex,ey-sy);
+    }
+}
 void MyScene::drawBackground(QPainter* ptr, const QRectF &rect)
 {
     // 绘制背景
@@ -292,6 +354,8 @@ void MyScene::drawBackground(QPainter* ptr, const QRectF &rect)
                 ptr->fillRect(QRectF(i-i%PAINT_ACCURACY,j-j%PAINT_ACCURACY,PAINT_ACCURACY,PAINT_ACCURACY),QBrush(Qt::green));
             if(map[i-i%PAINT_ACCURACY][j-j%PAINT_ACCURACY]==2)
                 ptr->fillRect(QRectF(i-i%PAINT_ACCURACY,j-j%PAINT_ACCURACY,PAINT_ACCURACY,PAINT_ACCURACY),QBrush(Qt::black));
+            if(map[i-i%PAINT_ACCURACY][j-j%PAINT_ACCURACY]==3)
+                ptr->fillRect(QRectF(i-i%PAINT_ACCURACY,j-j%PAINT_ACCURACY,PAINT_ACCURACY,PAINT_ACCURACY),QBrush(Qt::blue));
         }
     }
 }
