@@ -430,6 +430,18 @@ void MyScene::keyReleaseEvent(QKeyEvent *event)
 
 void MyScene::myUpdate()
 {
+    if(map[(int)player1->x()+23][(int)player1->y()+14]==-1)
+        ((Tank*)player1)->speed=TANK_SPEED-1;
+    else if(map[(int)player1->x()+23][(int)player1->y()+14]==1)
+        ((Tank*)player1)->speed=TANK_SPEED+1;
+    else
+        ((Tank*)player1)->speed=TANK_SPEED;
+    if(map[(int)player2->x()+23][(int)player2->y()+14]==1)
+        ((Tank2*)player2)->speed=TANK_SPEED-1;
+    else if(map[(int)player2->x()+23][(int)player2->y()+14]==-1)
+        ((Tank2*)player2)->speed=TANK_SPEED+1;
+    else
+        ((Tank2*)player2)->speed=TANK_SPEED;
     if(aKeyPressed)
         ((Tank*)player1)->turnLeft();
     if(dKeyPressed)
