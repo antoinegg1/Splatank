@@ -45,7 +45,7 @@ MyScene::MyScene():shouldDraw(false),circleX(0),circleY(0),count1(0),count2(0)
     mKeyPressed=false;
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MyScene::myUpdate);
-    timer->start(20);
+    timer->start(10);
     changeX=0;
     changeY=0;
     QGraphicsTextItem* winner= nullptr;
@@ -56,10 +56,8 @@ void MyScene::bombAt(int color,qreal X,qreal Y,qreal range)
 {
     changeX=fmax(0,X-75);
     changeY=fmax(0,Y-75);
-    int p1energy = (int)((Tank*)player1)->energy;
-    int p2energy = (int)((Tank*)player2)->energy;
-    int count1 = 0;
-    int count2 = 0;
+    //int p1energy = (int)((Tank*)player1)->energy;
+    //int p2energy = (int)((Tank*)player2)->energy;
     for(int i=changeX;i<fmin(800,changeX+150);i++)
         for(int j=changeY;j<fmin(500,changeY+150);j++)
         {
@@ -74,38 +72,37 @@ void MyScene::bombAt(int color,qreal X,qreal Y,qreal range)
                     {
                         if(color==1)
                         {
-                            ((Tank*)player1)->energy=fmin(100,((Tank*)player1)->energy+0.001);
-                            count1++;
+                            ((Tank*)player1)->eCount++;
                         }
                         if(color==-1)
                         {
-                            ((Tank2*)player2)->energy=fmin(100,((Tank2*)player2)->energy+0.001);
-                            count2++;
+                            ((Tank2*)player2)->eCount++;
                         }
                     }
                     map[i][j]=color;
                 }
             }
         }
-    paintenergy(1,0,fmin(100,p1energy+0.001*count1));
-    paintenergy(2,0,fmin(100,p2energy+0.001*count2));
-    qDebug()<<"tank1energy:"<<((Tank*)player1)->energy;
-    qDebug()<<"tank2energy:"<<((Tank2*)player2)->energy;
-    if(color==1&&!((Tank2*)player2)->destroyed&&can_be_reached_by_color(X,Y,player2->x()+23,player2->y()+14))
+
+    //paintenergy(2,0,fmin(100,p2energy+0.001*count2));
+    //qDebug()<<"tank1energy:"<<((Tank*)player1)->energy;
+    //qDebug()<<"tank2energy:"<<((Tank2*)player2)->energy;
+    if(color==1&&!((Tank2*)player2)->unkillable&&can_be_reached_by_color(X,Y,player2->x()+23,player2->y()+14))
     {
         qreal disTank=(X-player2->x()-23)*(X-player2->x()-23)+(Y-player2->y()-14)*(Y-player2->y()-14);
-        int harm=fmax(161.81*(0.356*range/(disTank+0.267*range)-0.28),0);
-        ((Tank2*)player2)->beHarmed(harm);
-        qDebug()<<disTank;
-        qDebug()<<"tank2hp:"<<((Tank2*)player2)->tank_hp;
+        ((Tank2*)player2)->harm +=fmax(161.81*(0.356*range/(disTank+0.267*range)-0.28),0);
+        qDebug()<<((Tank2*)player2)->harm;
+        //((Tank2*)player2)->beHarmed(harm);
+        //qDebug()<<disTank;
+        //qDebug()<<"tank2hp:"<<((Tank2*)player2)->tank_hp;
     }
-    if(color==-1&&!((Tank*)player1)->destroyed&&can_be_reached_by_color(X,Y,player1->x()+23,player1->y()+14))
+    if(color==-1&&!((Tank*)player1)->unkillable&&can_be_reached_by_color(X,Y,player1->x()+23,player1->y()+14))
     {
         qreal disTank=(X-player1->x()-23)*(X-player1->x()-23)+(Y-player1->y()-14)*(Y-player1->y()-14);
-        int harm=fmax(161.81*(2000/(disTank+1500)-0.28),0);
-        ((Tank*)player1)->beHarmed(harm);
-        qDebug()<<disTank;
-        qDebug()<<"tank1hp:"<<((Tank*)player1)->tank_hp;
+        ((Tank*)player1)->harm+=fmax(161.81*(2000/(disTank+1500)-0.28),0);
+        //((Tank*)player1)->beHarmed(harm);
+        //qDebug()<<disTank;
+        //qDebug()<<"tank1hp:"<<((Tank*)player1)->tank_hp;
     }
     update(QRectF(X-75,Y-75,150,150));
 }
@@ -571,5 +568,8 @@ void MyScene::myUpdate()
     {
         ((Tank2*)player2)->b[2]->moveBy();
     }
-
+    ((Tank*)player1)->beHarmed();
+    ((Tank2*)player2)->beHarmed();
+    ((Tank*)player1)->addEnergy();
+    ((Tank2*)player2)->addEnergy();
 }

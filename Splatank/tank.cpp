@@ -8,7 +8,7 @@
 #include<QGraphicsScene>
 #include<config.h>
 
-Tank::Tank(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),tank_hp(100),speed(TANK_SPEED),energy(0)
+Tank::Tank(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),tank_hp(100),speed(TANK_SPEED),energy(0),eCount(0),harm(0)
 {
     b[0]=new Bullet(scene,this,1);
     b[1]=new Bullet(scene,this,1);
@@ -108,8 +108,10 @@ void Tank::shoot()
     }
 }
 
-void Tank::beHarmed(int harm)
+void Tank::beHarmed()
 {
+    if(harm==0)
+        return;
     if(!unkillable)
     {
         parent->painthp(1,tank_hp,fmax(0,tank_hp-harm));
@@ -119,7 +121,18 @@ void Tank::beHarmed(int harm)
         if(tank_hp<=0)
             destroy();
     }
+    harm=0;
 }
+
+void Tank::addEnergy()
+{
+    if(eCount==0)
+        return;
+    parent->paintenergy(1,energy,fmin(100,energy+0.001*eCount));
+    energy=fmin(100,energy+0.001*eCount);
+    eCount=0;
+}
+
 void Tank::handletimeout()
 {
     recover_remaintime --;

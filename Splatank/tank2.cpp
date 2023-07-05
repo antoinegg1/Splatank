@@ -7,7 +7,7 @@
 #include<QGraphicsScene>
 #include<config.h>
 
-Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),tank_hp(100),speed(TANK_SPEED),energy(0)
+Tank2::Tank2(const QPixmap &pixmap,MyScene *scene):QGraphicsPixmapItem(pixmap),tank_hp(100),speed(TANK_SPEED),energy(0),eCount(0),harm(0)
 {
     setFlag(QGraphicsItem::ItemIsFocusable);
     b[0]=new Bullet(scene,this,-1);
@@ -106,8 +106,10 @@ void Tank2::shoot()
     }
 }
 
-void Tank2::beHarmed(int harm)
+void Tank2::beHarmed()
 {
+    if(harm==0)
+        return;
     if(!unkillable)
     {
         parent->painthp(2,tank_hp,fmax(0,tank_hp-harm));
@@ -117,7 +119,18 @@ void Tank2::beHarmed(int harm)
         if(tank_hp<=0)
             destroy();
     }
+    harm=0;
 }
+
+void Tank2::addEnergy()
+{
+    if(eCount==0)
+        return;
+    parent->paintenergy(2,energy,fmin(100,energy+0.001*eCount));
+    energy=fmin(100,energy+0.001*eCount);
+    eCount=0;
+}
+
 void Tank2::handletimeout()
 {
     recover_remaintime --;

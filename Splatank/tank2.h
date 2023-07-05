@@ -30,10 +30,13 @@ public:
     bool destroyed;
     bool unkillable;
     bool outofwar;
-    void beHarmed(int harm);
+    void beHarmed();
+    void addEnergy();
     int tank_hp;
     int speed;
     qreal energy;
+    int eCount;
+    int harm;
     int recover_remaintime;
 
 protected:

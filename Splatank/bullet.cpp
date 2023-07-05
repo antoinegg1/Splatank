@@ -39,6 +39,7 @@ void Bullet::shoot(qreal X,qreal Y,qreal angle) {
 
 void Bullet:: moveBy()
 {
+    //qDebug()<<speed;
     setPos(x() + dx, y() + dy);
     qreal dis=(x()-startX)*(x()-startX)+(y()-startY)*(y()-startY);
     QList<QGraphicsItem *> collidingItems = this->collidingItems();

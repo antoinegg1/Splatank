@@ -29,9 +29,12 @@ public:
     int type() const override {
         return Type;
     }
-    void beHarmed(int harm);
+    void beHarmed();
+    void addEnergy();
     int tank_hp;
     qreal energy;
+    int eCount;
+    int harm;
     int speed;
     int recover_remaintime;
 
